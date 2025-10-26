@@ -1,4 +1,4 @@
-module github.com/ricoberger/backstage
+module github.com/ricoberger/grafana-backstage-plugin
 
 go 1.24.6
 

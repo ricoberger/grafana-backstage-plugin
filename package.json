@@ -13,8 +13,13 @@
     "server": "docker compose up --build",
     "sign": "npx --yes @grafana/sign-plugin@latest"
   },
-  "author": "Ricoberger",
-  "license": "Apache-2.0",
+  "author": "Rico Berger",
+  "description": "Backstage plugin for Grafana. Explore your service catalog.",
+  "keywords": [
+    "app",
+    "backstage"
+  ],
+  "license": "MIT",
   "devDependencies": {
     "@grafana/eslint-config": "^8.2.0",
     "@grafana/plugin-e2e": "^2.2.0",

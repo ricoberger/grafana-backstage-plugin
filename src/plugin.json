@@ -6,11 +6,36 @@
   "backend": true,
   "executable": "gpx_backstage",
   "info": {
-    "keywords": ["app"],
-    "description": "",
+    "keywords": [
+      "app",
+      "backstage"
+    ],
+    "description": "Backstage plugin for Grafana. Explore your service catalog.",
     "author": {
-      "name": "Ricoberger"
+      "name": "Rico Berger"
     },
+    "links": [
+      {
+        "name": "Repository",
+        "url": "https://github.com/ricoberger/grafana-backstage-plugin"
+      },
+      {
+        "name": "Documentation",
+        "url": "https://github.com/ricoberger/grafana-backstage-plugin/blob/main/README.md"
+      },
+      {
+        "name": "Issues",
+        "url": "https://github.com/ricoberger/grafana-backstage-plugin/issues"
+      },
+      {
+        "name": "License",
+        "url": "https://github.com/ricoberger/grafana-backstage-plugin/blob/main/LICENSE"
+      },
+      {
+        "name": "Sponsorship",
+        "url": "https://github.com/ricoberger"
+      }
+    ],
     "logos": {
       "small": "img/logo.svg",
       "large": "img/logo.svg"

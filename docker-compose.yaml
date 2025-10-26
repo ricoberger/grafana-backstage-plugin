@@ -3,3 +3,10 @@ services:
     extends:
       file: .config/docker-compose-base.yaml
       service: grafana
+    build:
+      args:
+        grafana_image: ${GRAFANA_IMAGE:-grafana}
+        grafana_version: ${GRAFANA_VERSION:-12.2.0}
+    environment:
+      GF_LOG_FILTERS: plugin.ricoberger-backstage-app:debug
+      GF_LOG_LEVEL: error

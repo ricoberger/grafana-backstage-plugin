@@ -3,7 +3,7 @@ apiVersion: 1
 apps:
   - type: 'ricoberger-backstage-app'
     org_id: 1
-    org_name: 'ricoberger'
+    org_name: Main Org.
     disabled: false
     jsonData:
       apiUrl: http://default-url.com
