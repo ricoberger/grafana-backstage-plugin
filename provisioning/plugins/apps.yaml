@@ -6,6 +6,6 @@ apps:
     org_name: Main Org.
     disabled: false
     jsonData:
-      apiUrl: http://default-url.com
+      apiUrl: https://demo.backstage.io
     secureJsonData:
-      apiKey: secret-key
+      apiKey:

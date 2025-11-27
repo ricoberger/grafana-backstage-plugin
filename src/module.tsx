@@ -1,10 +1,10 @@
 import React, { Suspense, lazy } from 'react';
 import { AppPlugin, type AppRootProps } from '@grafana/data';
 import { LoadingPlaceholder } from '@grafana/ui';
-import type { AppConfigProps } from './components/AppConfig/AppConfig';
 
-const LazyApp = lazy(() => import('./components/App/App'));
-const LazyAppConfig = lazy(() => import('./components/AppConfig/AppConfig'));
+import type { AppConfigProps } from './components/appconfig/AppConfig';
+const LazyApp = lazy(() => import('./components/app/App'));
+const LazyAppConfig = lazy(() => import('./components/appconfig/AppConfig'));
 
 const App = (props: AppRootProps) => (
   <Suspense fallback={<LoadingPlaceholder text="" />}>

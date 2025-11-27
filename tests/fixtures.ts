@@ -1,4 +1,5 @@
 import { AppConfigPage, AppPage, test as base } from '@grafana/plugin-e2e';
+
 import pluginJson from '../src/plugin.json';
 
 type AppTestFixture = {
@@ -18,7 +19,7 @@ export const test = base.extend<AppTestFixture>({
       gotoAppPage({
         path,
         pluginId: pluginJson.id,
-      })
+      }),
     );
   },
 });

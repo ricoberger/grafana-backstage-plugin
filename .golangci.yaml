@@ -31,7 +31,7 @@ formatters:
   settings:
     goimports:
       local-prefixes:
-        - github.com/ricoberger/grafana-kubernetes-plugin
+        - github.com/ricoberger/grafana-backstage-plugin
   exclusions:
     generated: lax
     paths:
