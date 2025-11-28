@@ -78,7 +78,7 @@ export function CatalogTable({ filters }: Props) {
       }
     }
     return convertEntitiesToTableData(
-      settings?.meta.jsonData?.apiUrl || '',
+      settings?.meta.jsonData?.url || '',
       settings?.meta.jsonData?.dashboards,
       filters.kind || '',
       tmpEntities.filter((entity) =>

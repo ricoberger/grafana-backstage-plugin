@@ -10,8 +10,8 @@ import {
 import { getBackendSrv } from '@grafana/runtime';
 import {
   Button,
-  Field,
   FieldSet,
+  InlineField,
   Input,
   SecretInput,
   useStyles2,
@@ -36,12 +36,12 @@ const AppConfig = ({
   }));
 
   const [state, setState] = useState<{
-    apiUrl: string;
+    url: string;
     isApiKeySet: boolean;
     apiKey: string;
     dashboards: Array<[string, string]>;
   }>({
-    apiUrl: jsonData?.apiUrl || '',
+    url: jsonData?.url || '',
     apiKey: '',
     isApiKeySet: Boolean(secureJsonFields?.apiKey),
     dashboards: jsonData?.dashboards || [],
@@ -50,7 +50,7 @@ const AppConfig = ({
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!state.apiUrl) {
+    if (!state.url) {
       return;
     }
 
@@ -58,7 +58,8 @@ const AppConfig = ({
       enabled,
       pinned,
       jsonData: {
-        apiUrl: state.apiUrl,
+        url: state.url,
+        dashboards: state.dashboards,
       },
       secureJsonData: state.isApiKeySet
         ? undefined
@@ -70,31 +71,25 @@ const AppConfig = ({
 
   return (
     <form onSubmit={onSubmit}>
-      <AppConfigDashboards
-        dashboards={state.dashboards}
-        onChange={(dashboards) =>
-          setState({ ...state, dashboards: dashboards })
-        }
-      />
-
-      <FieldSet label="Settings">
-        <Field label="API Url">
+      <FieldSet label="General">
+        <InlineField label="Url" labelWidth={10}>
           <Input
             width={60}
-            name="apiUrl"
-            id="config-api-url"
-            data-testid={testIds.appConfig.apiUrl}
-            value={state.apiUrl}
+            name="url"
+            id="config-url"
+            data-testid={testIds.appConfig.url}
+            value={state.url}
             placeholder="https://demo.backstage.io"
             onChange={(event: ChangeEvent<HTMLInputElement>) => {
               setState({
                 ...state,
-                apiUrl: event.target.value.trim(),
+                url: event.target.value.trim(),
               });
             }}
           />
-        </Field>
-        <Field label="API Key" className={styles.marginTop}>
+        </InlineField>
+
+        <InlineField label="API Key" labelWidth={10}>
           <SecretInput
             width={60}
             id="config-api-key"
@@ -116,17 +111,25 @@ const AppConfig = ({
               })
             }
           />
-        </Field>
-        <div className={styles.marginTop}>
-          <Button
-            type="submit"
-            data-testid={testIds.appConfig.submit}
-            disabled={!state.apiUrl}
-          >
-            Save settings
-          </Button>
-        </div>
+        </InlineField>
       </FieldSet>
+
+      <AppConfigDashboards
+        dashboards={state.dashboards}
+        onChange={(dashboards) =>
+          setState({ ...state, dashboards: dashboards })
+        }
+      />
+
+      <div className={styles.marginTop}>
+        <Button
+          type="submit"
+          data-testid={testIds.appConfig.submit}
+          disabled={!state.url}
+        >
+          Save
+        </Button>
+      </div>
     </form>
   );
 };
