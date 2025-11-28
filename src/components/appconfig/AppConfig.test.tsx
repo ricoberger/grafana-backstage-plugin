@@ -1,10 +1,11 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { PluginType } from '@grafana/data';
-import AppConfig, { AppConfigProps } from './AppConfig';
-import { testIds } from 'components/testIds';
 
-describe('Components/AppConfig', () => {
+import AppConfig, { AppConfigProps } from './AppConfig';
+import { testIds } from '../testIds';
+
+describe('AppConfig', () => {
   let props: AppConfigProps;
 
   beforeEach(() => {
@@ -27,12 +28,16 @@ describe('Components/AppConfig', () => {
   test('renders the "API Settings" fieldset with API key, API url inputs and button', () => {
     const plugin = { meta: { ...props.plugin.meta, enabled: false } };
 
-    // @ts-ignore - We don't need to provide `addConfigPage()` and `setChannelSupport()` for these tests
+    // @ts-ignore
     render(<AppConfig plugin={plugin} query={props.query} />);
 
-    expect(screen.queryByRole('group', { name: /api settings/i })).toBeInTheDocument();
+    expect(
+      screen.queryByRole('group', { name: /settings/i }),
+    ).toBeInTheDocument();
     expect(screen.queryByTestId(testIds.appConfig.apiKey)).toBeInTheDocument();
     expect(screen.queryByTestId(testIds.appConfig.apiUrl)).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: /save api settings/i })).toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: /save settings/i }),
+    ).toBeInTheDocument();
   });
 });
