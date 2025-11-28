@@ -29,7 +29,7 @@ var (
 type App struct {
 	backend.CallResourceHandler
 
-	apiUrl     string
+	url        string
 	httpClient *http.Client
 	logger     log.Logger
 }
@@ -53,7 +53,7 @@ func NewApp(_ context.Context, settings backend.AppInstanceSettings) (instancemg
 	}
 
 	app := App{
-		apiUrl: jsonData.ApiUrl,
+		url: jsonData.Url,
 		httpClient: &http.Client{
 			Transport: transporter,
 		},

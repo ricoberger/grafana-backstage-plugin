@@ -32,12 +32,10 @@ describe('AppConfig', () => {
     render(<AppConfig plugin={plugin} query={props.query} />);
 
     expect(
-      screen.queryByRole('group', { name: /settings/i }),
+      screen.queryByRole('group', { name: /general/i }),
     ).toBeInTheDocument();
+    expect(screen.queryByTestId(testIds.appConfig.url)).toBeInTheDocument();
     expect(screen.queryByTestId(testIds.appConfig.apiKey)).toBeInTheDocument();
-    expect(screen.queryByTestId(testIds.appConfig.apiUrl)).toBeInTheDocument();
-    expect(
-      screen.queryByRole('button', { name: /save settings/i }),
-    ).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /save/i })).toBeInTheDocument();
   });
 });

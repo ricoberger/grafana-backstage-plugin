@@ -1,4 +1,4 @@
 export type AppPluginSettings = {
-  apiUrl?: string;
+  url?: string;
   dashboards?: Array<[string, string]>;
 };

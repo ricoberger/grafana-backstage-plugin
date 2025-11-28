@@ -7,5 +7,5 @@ const PluginID = "ricoberger-backstage-app"
 // PluginSettings holds the settings for the Backstage app plugin, which can be
 // configured in the Grafana UI.
 type PluginSettings struct {
-	ApiUrl string `json:"apiUrl"`
+	Url string `json:"url"`
 }

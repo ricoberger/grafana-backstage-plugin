@@ -35,7 +35,7 @@ func (a *App) handleCatalogEntityFacets(w http.ResponseWriter, r *http.Request) 
 		filterParam = fmt.Sprintf("&filter=%s&", url.QueryEscape(filter))
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s/api/catalog/entity-facets?facet=%s%s", a.apiUrl, facet, filterParam), nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s/api/catalog/entity-facets?facet=%s%s", a.url, facet, filterParam), nil)
 	if err != nil {
 		a.logger.Error("Failed to create request", "error", err.Error())
 		span.RecordError(err)
@@ -128,7 +128,7 @@ func (a *App) handleCatalogEntitiesByQuery(w http.ResponseWriter, r *http.Reques
 		cursorParam = fmt.Sprintf("&cursor=%s", cursor)
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s/api/catalog/entities/by-query?orderField=metadata.name,asc&limit=100&%s%s", a.apiUrl, filterParam, cursorParam), nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, fmt.Sprintf("%s/api/catalog/entities/by-query?orderField=metadata.name,asc&limit=100&%s%s", a.url, filterParam, cursorParam), nil)
 	if err != nil {
 		a.logger.Error("Failed to create request", "error", err.Error())
 		span.RecordError(err)

@@ -6,7 +6,7 @@ apps:
     org_name: Main Org.
     disabled: false
     jsonData:
-      apiUrl: https://demo.backstage.io
+      url: https://demo.backstage.io
       dashboards:
         - [
             'Component',
