@@ -19,6 +19,7 @@ import {
 
 import { testIds } from '../testIds';
 import { AppPluginSettings } from '../../types/settings';
+import { AppConfigDashboards } from './AppConfigDashboards';
 
 export interface AppConfigProps
   extends PluginConfigPageProps<AppPluginMeta<AppPluginSettings>> { }
@@ -38,10 +39,12 @@ const AppConfig = ({
     apiUrl: string;
     isApiKeySet: boolean;
     apiKey: string;
+    dashboards: Array<[string, string]>;
   }>({
     apiUrl: jsonData?.apiUrl || '',
     apiKey: '',
     isApiKeySet: Boolean(secureJsonFields?.apiKey),
+    dashboards: jsonData?.dashboards || [],
   });
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -67,6 +70,13 @@ const AppConfig = ({
 
   return (
     <form onSubmit={onSubmit}>
+      <AppConfigDashboards
+        dashboards={state.dashboards}
+        onChange={(dashboards) =>
+          setState({ ...state, dashboards: dashboards })
+        }
+      />
+
       <FieldSet label="Settings">
         <Field label="API Url">
           <Input

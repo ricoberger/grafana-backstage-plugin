@@ -7,5 +7,14 @@ apps:
     disabled: false
     jsonData:
       apiUrl: https://demo.backstage.io
+      dashboards:
+        - [
+            'Component',
+            'component?var-name={{ $.metadata.name }}&var-namespace={{
+            $.metadata.namespace }}&var-description={{ $.metadata.description
+            }}&var-owner={{ $.spec.owner }}&var-system={{ $.spec.system
+            }}&var-type={{ $.spec.type }}&var-lifecycle={{ $.spec.lifecycle
+            }}&var-tags={{ $.metadata.tags }}',
+          ]
     secureJsonData:
       apiKey:

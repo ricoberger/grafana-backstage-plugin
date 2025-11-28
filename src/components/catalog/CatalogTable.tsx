@@ -20,6 +20,7 @@ import {
   EntitiesTable,
 } from '../../types/backstage';
 import { AppPluginSettings } from '../../types/settings';
+import { interpolateJSONPath } from '../../utils/utils.interpolate';
 
 interface Props {
   filters: Filters;
@@ -78,6 +79,7 @@ export function CatalogTable({ filters }: Props) {
     }
     return convertEntitiesToTableData(
       settings?.meta.jsonData?.apiUrl || '',
+      settings?.meta.jsonData?.dashboards,
       filters.kind || '',
       tmpEntities.filter((entity) =>
         entity.metadata.name?.includes(filters.filter || ''),
@@ -107,6 +109,7 @@ export function CatalogTable({ filters }: Props) {
 
 function convertEntitiesToTableData(
   backstageUrl: string,
+  dashboards: Array<[string, string]> | undefined,
   kind: string,
   entities: Entity[],
 ): EntitiesTable {
@@ -125,6 +128,7 @@ function convertEntitiesToTableData(
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
         backstageUrl: backstageUrl,
+        dashboards: dashboards,
         entity: entity,
       })),
     };
@@ -145,6 +149,7 @@ function convertEntitiesToTableData(
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
         backstageUrl: backstageUrl,
+        dashboards: dashboards,
         entity: entity,
       })),
     };
@@ -162,6 +167,7 @@ function convertEntitiesToTableData(
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
         backstageUrl: backstageUrl,
+        dashboards: dashboards,
         entity: entity,
       })),
     };
@@ -179,6 +185,7 @@ function convertEntitiesToTableData(
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
         backstageUrl: backstageUrl,
+        dashboards: dashboards,
         entity: entity,
       })),
     };
@@ -195,6 +202,7 @@ function convertEntitiesToTableData(
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
         backstageUrl: backstageUrl,
+        dashboards: dashboards,
         entity: entity,
       })),
     };
@@ -215,6 +223,7 @@ function convertEntitiesToTableData(
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
         backstageUrl: backstageUrl,
+        dashboards: dashboards,
         entity: entity,
       })),
     };
@@ -232,6 +241,7 @@ function convertEntitiesToTableData(
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
         backstageUrl: backstageUrl,
+        dashboards: dashboards,
         entity: entity,
       })),
     };
@@ -248,6 +258,7 @@ function convertEntitiesToTableData(
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
         backstageUrl: backstageUrl,
+        dashboards: dashboards,
         entity: entity,
       })),
     };
@@ -264,6 +275,7 @@ function convertEntitiesToTableData(
     data: entities.map((entity) => ({
       id: entity.metadata.uid,
       backstageUrl: backstageUrl,
+      dashboards: dashboards,
       entity: entity,
     })),
   };
@@ -276,13 +288,23 @@ const NameCell = (props: any) => {
     entity.metadata.annotations &&
     entity.metadata.annotations['grafana.com/dashboard']
   ) {
-    return (
-      <TextLink
-        href={`/d/${entity.metadata.annotations['grafana.com/dashboard']}`}
-      >
-        {entity.metadata.name}
-      </TextLink>
+    const link = interpolateJSONPath(
+      entity.metadata.annotations['grafana.com/dashboard'],
+      entity,
     );
+    if (link) {
+      return <TextLink href={`/d/${link}`}>{entity.metadata.name}</TextLink>;
+    }
+  }
+
+  const dashboards = props.row.original.dashboards.filter(
+    (dashboard: [string, string]) => dashboard[0] === entity.kind,
+  );
+  if (dashboards && dashboards.length === 1) {
+    const link = interpolateJSONPath(dashboards[0][1], entity);
+    if (link) {
+      return <TextLink href={`/d/${link}`}>{entity.metadata.name}</TextLink>;
+    }
   }
 
   return <span>{entity.metadata.name}</span>;

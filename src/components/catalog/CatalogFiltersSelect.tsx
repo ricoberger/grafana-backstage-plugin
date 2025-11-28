@@ -43,7 +43,6 @@ export function CatalogFiltersSelect<T>({
 
   // eslint-disable-next-line @typescript-eslint/array-type
   const onMultiChange = (option: ComboboxOption<string>[]) => {
-    console.log(Array.from(option.values()).map((value) => value.value));
     setValue(Array.from(option.values()).map((value) => value.value) as T);
   };
 
