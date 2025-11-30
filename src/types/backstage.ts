@@ -38,7 +38,7 @@ export type Entity = {
     target?: string;
     targets?: string[];
   };
-  relations: Array<{ type?: string; targetRef?: string }>;
+  relations: Array<{ type: string; targetRef: string }>;
 };
 
 export interface EntitiesTable {

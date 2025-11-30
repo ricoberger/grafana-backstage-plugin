@@ -18,6 +18,7 @@ import (
 func (a *App) registerRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("/catalog/entity-facets", a.handleCatalogEntityFacets)
 	mux.HandleFunc("/catalog/entities/by-query", a.handleCatalogEntitiesByQuery)
+	mux.HandleFunc("/catalog/entities/by-refs", a.handleCatalogEntitiesByRefs)
 }
 
 func (a *App) handleCatalogEntityFacets(w http.ResponseWriter, r *http.Request) {
@@ -137,6 +138,72 @@ func (a *App) handleCatalogEntitiesByQuery(w http.ResponseWriter, r *http.Reques
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	resp, err := a.httpClient.Do(req)
+	if err != nil {
+		a.logger.Error("Failed to run request", "error", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode == http.StatusOK {
+		_, err = io.Copy(w, resp.Body)
+		if err != nil {
+			a.logger.Error("Failed to copy response body", "error", err.Error())
+			span.RecordError(err)
+			span.SetStatus(codes.Error, err.Error())
+
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		return
+	}
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		a.logger.Error("Failed to read response body", "error", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = fmt.Errorf("invalid response: %s", string(body))
+	a.logger.Error("Failed request", "status", resp.StatusCode, "error", err.Error())
+	span.SetAttributes(attribute.Key("status").Int(resp.StatusCode))
+	span.RecordError(err)
+	span.SetStatus(codes.Error, err.Error())
+
+	http.Error(w, err.Error(), http.StatusInternalServerError)
+}
+
+type Request struct {
+	EntityRefs []string `json:"entityRefs"`
+}
+
+func (a *App) handleCatalogEntitiesByRefs(w http.ResponseWriter, r *http.Request) {
+	ctx, span := tracing.DefaultTracer().Start(r.Context(), "handleCatalogEntitiesByRefs")
+	defer span.End()
+
+	a.logger.Info("handleCatalogEntitiesByRefs")
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, fmt.Sprintf("%s/api/catalog/entities/by-refs", a.url), r.Body)
+	if err != nil {
+		a.logger.Error("Failed to create request", "error", err.Error())
+		span.RecordError(err)
+		span.SetStatus(codes.Error, err.Error())
+
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	req.Header.Add("Content-Type", "application/json")
 
 	resp, err := a.httpClient.Do(req)
 	if err != nil {
