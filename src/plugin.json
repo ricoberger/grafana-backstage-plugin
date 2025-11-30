@@ -46,6 +46,11 @@
   },
   "includes": [
     {
+      "type": "panel",
+      "name": "Backstage: Catalog Graph",
+      "path": "panel-catalog-graph/plugin.json"
+    },
+    {
       "type": "page",
       "name": "Catalog",
       "path": "/a/%PLUGIN_ID%/catalog",

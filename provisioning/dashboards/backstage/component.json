@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 0,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -27,8 +27,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
-        "w": 24,
+        "h": 12,
+        "w": 6,
         "x": 0,
         "y": 0
       },
@@ -45,6 +45,34 @@
       "pluginVersion": "12.3.0",
       "title": "Details",
       "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 18,
+        "x": 6,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "entity": "component:${namespace}/${name}"
+      },
+      "pluginVersion": "1.0.0",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "title": "Graph",
+      "type": "ricoberger-backstagecataloggraph-panel"
     }
   ],
   "preload": false,
@@ -210,5 +238,5 @@
   "timezone": "browser",
   "title": "Component",
   "uid": "component",
-  "version": 7
+  "version": 1
 }
