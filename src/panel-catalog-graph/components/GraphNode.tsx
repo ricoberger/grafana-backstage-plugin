@@ -1,17 +1,25 @@
 import React from 'react';
 import { Node, Position, Handle, NodeProps } from '@xyflow/react';
+import { useTheme2 } from '@grafana/ui';
 
 export const nodeWidth = 172;
 export const nodeHeight = 36;
 
 export const GraphNode: React.FC<
-  NodeProps<
-    Node<{ isRoot: boolean; kind: string; namespace: string; name: string }>
-  >
+  NodeProps<Node<{ isRoot: boolean; name: string }>>
 > = ({ data }) => {
+  const theme = useTheme2();
+
   return (
     <>
-      <Handle type="target" position={Position.Left} />
+      <Handle
+        type="target"
+        position={Position.Left}
+        style={{
+          background: 'rgba(0, 0, 0, 0)',
+          borderStyle: 'none',
+        }}
+      />
       <div
         style={{
           maxWidth: `${nodeWidth}px`,
@@ -22,11 +30,19 @@ export const GraphNode: React.FC<
             ? 'rgb(242, 73, 92)'
             : 'rgb(87, 148, 242)',
           fontSize: '6px',
+          borderRadius: theme.shape.radius.default,
         }}
       >
         {data.name}
       </div>
-      <Handle type="source" position={Position.Right} />
+      <Handle
+        type="source"
+        position={Position.Right}
+        style={{
+          background: 'rgba(0, 0, 0, 0)',
+          borderStyle: 'none',
+        }}
+      />
     </>
   );
 };
