@@ -27,9 +27,9 @@ export function AppConfigDashboards({ dashboards, onChange }: Props) {
 
       {dashboards.map((dashboard, index) => (
         <InlineFieldRow key={index}>
-          <InlineField label="Kind">
+          <InlineField label="Kind" labelWidth={10}>
             <Input
-              width={60}
+              width={40}
               name="kind"
               placeholder="Component"
               value={dashboard[0]}
@@ -43,9 +43,9 @@ export function AppConfigDashboards({ dashboards, onChange }: Props) {
               }}
             />
           </InlineField>
-          <InlineField label="Dashboard">
+          <InlineField label="Dashboard" labelWidth={10}>
             <Input
-              width={60}
+              width={40}
               name="dashboard"
               placeholder="component?var-name={{ $.metadata.name }}"
               value={dashboard[1]}
