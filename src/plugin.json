@@ -40,7 +40,16 @@
       "small": "img/logo.svg",
       "large": "img/logo.svg"
     },
-    "screenshots": [],
+    "screenshots": [
+      {
+        "name": "Catalog",
+        "path": "img/screenshots/catalog.png"
+      },
+      {
+        "name": "Dashboard with Backstage Catalog Graph Panel",
+        "path": "img/screenshots/dashboard-with-backstage-catalog-graph-panel.png"
+      }
+    ],
     "version": "%VERSION%",
     "updated": "%TODAY%"
   },
