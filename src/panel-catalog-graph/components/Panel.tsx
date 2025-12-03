@@ -44,69 +44,63 @@ export const Panel: React.FC<Props> = ({
     nodes: Node[];
     edges: Edge[];
   }> => {
-    const rootId = replaceVariables(options.entity);
     /**
-     * Get the root node, for which the graph should be displayed. Afterwards
-     * we get all leaf nodes, by looking at the relations of the root node.
+     * Get the entity spec and the entity spec for all relations.
      */
-    const rootEntites = await getEntites([rootId]);
-    if (rootEntites.length !== 1) {
-      throw new Error('invalid root entity');
-    }
-    const rootEntity = rootEntites[0];
-
-    const leafEntites = await getEntites(
-      rootEntity.relations.map((relation) => relation.targetRef),
-    );
+    const entityId = replaceVariables(options.entity);
+    const entity = (await getEntites([entityId]))[0];
+    const relationEntites = (
+      await getEntites(entity.relations.map((relation) => relation.targetRef))
+    ).filter((entity) => entity !== null);
 
     /**
      * Create the nodes and edges for the graph. The "isRoot" property is used
-     * to indicate the root node in the graph by applying a custom style.
+     * to indicate the entity for which the graph should be displayed, set via
+     * the panel options.
      */
     const nodes = [
       {
-        id: rootId,
+        id: entityId,
         type: 'catalog',
         data: {
           isRoot: true,
-          kind: rootEntity.kind,
-          namespace: rootEntity.metadata.namespace,
-          name: rootEntity.metadata.name,
+          kind: entity.kind,
+          namespace: entity.metadata.namespace,
+          name: entity.metadata.name,
         },
         position: { x: 0, y: 0 },
       },
     ];
     const edges = [];
 
-    for (const relation of rootEntity.relations) {
+    for (const relationEntity of relationEntites) {
       /**
-       * Loop trhough all relations of the root node and add them as nodes to
-       * the graph. Then we get the fetched leaf node for the relation.
+       * Add the relation entity as node to the graph. Also determine the
+       * relation types bwtween the entity and the relation and the relation and
+       * the entity.
        */
-      const leafEntity = leafEntites.filter((entity) => {
-        const id =
-          `${entity.kind}:${entity.metadata.namespace}/${entity.metadata.name}`.toLowerCase();
-        return id === relation.targetRef;
-      });
-      const leafEntityRelation = leafEntity[0].relations.filter(
-        (relation) => relation.targetRef === rootId,
-      );
+      const relationEntityId = `${relationEntity.kind.toLowerCase()}:${relationEntity.metadata.namespace}/${relationEntity.metadata.name}`;
+      const relationEntityRelationType = relationEntity.relations.filter(
+        (relation) => relation.targetRef === entityId,
+      )[0].type;
+      const entityRelationType = entity.relations.filter(
+        (r) => r.targetRef === relationEntityId,
+      )[0].type;
 
       nodes.push({
-        id: relation.targetRef,
+        id: relationEntityId,
         type: 'catalog',
         data: {
           isRoot: false,
-          kind: leafEntity[0].kind,
-          namespace: leafEntity[0].metadata.namespace,
-          name: leafEntity[0].metadata.name,
+          kind: relationEntity.kind,
+          namespace: relationEntity.metadata.namespace,
+          name: relationEntity.metadata.name,
         },
         position: { x: 0, y: 0 },
       });
 
       /**
-       * Use the leaf node to define, which of the nodes is the source and which
-       * is the target in the edge.
+       * Use the relation type to determine the direction of the edge.
        */
       let source = '';
       let target = '';
@@ -120,15 +114,15 @@ export const Panel: React.FC<Props> = ({
           'childOf',
           'memberOf',
           'dependencyOf',
-        ].includes(relation.type)
+        ].includes(entityRelationType)
       ) {
-        source = relation.targetRef;
-        target = rootId;
-        label = `${leafEntityRelation[0].type} / ${relation.type}`;
+        source = relationEntityId;
+        target = entityId;
+        label = `${relationEntityRelationType} / ${entityRelationType}`;
       } else {
-        source = rootId;
-        target = relation.targetRef;
-        label = `${relation.type} / ${leafEntityRelation[0].type}`;
+        source = entityId;
+        target = relationEntityId;
+        label = `${entityRelationType} / ${relationEntityRelationType}`;
       }
 
       edges.push({

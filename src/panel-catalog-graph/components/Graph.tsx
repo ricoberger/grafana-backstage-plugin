@@ -83,6 +83,11 @@ export const Graph: React.FC<{
           catalog: GraphEdge,
         }}
         fitView={true}
+        nodesDraggable={false}
+        nodesConnectable={false}
+        nodesFocusable={false}
+        edgesFocusable={false}
+        elementsSelectable={false}
         proOptions={{ hideAttribution: true }}
       ></ReactFlow>
     </div>
