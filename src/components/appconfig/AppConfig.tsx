@@ -74,7 +74,7 @@ const AppConfig = ({
       <FieldSet label="General">
         <InlineField label="Url" labelWidth={10}>
           <Input
-            width={60}
+            width={40}
             name="url"
             id="config-url"
             data-testid={testIds.appConfig.url}
@@ -91,7 +91,7 @@ const AppConfig = ({
 
         <InlineField label="API Key" labelWidth={10}>
           <SecretInput
-            width={60}
+            width={40}
             id="config-api-key"
             data-testid={testIds.appConfig.apiKey}
             name="apiKey"
