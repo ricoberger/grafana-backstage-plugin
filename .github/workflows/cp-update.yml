@@ -27,4 +27,4 @@ jobs:
 
     steps:
       - name: Update Plugin
-        uses: grafana/plugin-actions/create-plugin-update@create-plugin-update/v1.1.0
+        uses: grafana/plugin-actions/create-plugin-update@create-plugin-update/v2.0.1
