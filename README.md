@@ -37,7 +37,7 @@ catalog entries to your Grafana dashboards.
 ```ini
 [plugins]
 allow_loading_unsigned_plugins = ricoberger-backstage-app,ricoberger-backstagecataloggraph-panel
-preinstall_sync = ricoberger-kubernetes-app@0.1.0@https://github.com/ricoberger/grafana-backstage-plugin/releases/download/v0.1.0/ricoberger-backstage-app-0.1.0.zip
+preinstall_sync = ricoberger-backstage-app@0.1.0@https://github.com/ricoberger/grafana-backstage-plugin/releases/download/v0.1.0/ricoberger-backstage-app-0.1.0.zip
 ```
 
 ### Environment Variables
