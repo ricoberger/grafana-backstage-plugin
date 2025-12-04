@@ -1,11 +1,12 @@
 module github.com/ricoberger/grafana-backstage-plugin
 
-go 1.24.6
+go 1.25.4
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.281.0
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0
+	go.opentelemetry.io/otel v1.38.0
 )
 
 require (
@@ -68,7 +69,6 @@ require (
 	go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace v0.63.0 // indirect
 	go.opentelemetry.io/contrib/propagators/jaeger v1.38.0 // indirect
 	go.opentelemetry.io/contrib/samplers/jaegerremote v0.32.0 // indirect
-	go.opentelemetry.io/otel v1.38.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.38.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.38.0 // indirect
 	go.opentelemetry.io/otel/metric v1.38.0 // indirect
