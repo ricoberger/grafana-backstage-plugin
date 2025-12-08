@@ -36,14 +36,14 @@ catalog entries to your Grafana dashboards.
 
 ```ini
 [plugins]
-allow_loading_unsigned_plugins = ricoberger-backstage-app,ricoberger-backstagecataloggraph-panel
+allow_loading_unsigned_plugins = ricoberger-backstage-app,ricoberger-backstagecatalogentities-panel,ricoberger-backstagecataloggraph-panel
 preinstall_sync = ricoberger-backstage-app@0.1.0@https://github.com/ricoberger/grafana-backstage-plugin/releases/download/v0.1.0/ricoberger-backstage-app-0.1.0.zip
 ```
 
 ### Environment Variables
 
 ```bash
-export GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=ricoberger-backstage-app,ricoberger-backstagecataloggraph-panel
+export GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=ricoberger-backstage-app,ricoberger-backstagecatalogentities-panel,ricoberger-backstagecataloggraph-panel
 export GF_PLUGINS_PREINSTALL_SYNC=ricoberger-backstage-app@0.1.0@https://github.com/ricoberger/grafana-backstage-plugin/releases/download/v0.1.0/ricoberger-backstage-app-0.1.0.zip
 ```
 
@@ -71,6 +71,23 @@ is defined via the `grafana.com/dashboard` annotation.
 - **Annotation**: Instead of using the default dashboard defined for the entity
   kind, you can also define the dashboard via the `grafana.com/dashboard`
   annotation on the Backstage entity.
+
+### Panel: Catalog Entities
+
+The **Catalog Entities** panel can be used to show the catalog entities for an
+user, team or the currently logged in user. The entity must be provided in the
+panel options via the `Owner` field in the following form:
+`kind:namespace/name`.
+
+![Dashboard with Backstage Catalog Entities Panel](https://raw.githubusercontent.com/ricoberger/grafana-backstage-plugin/refs/heads/main/src/img/screenshots/dashboard-with-backstage-catalog-entities-panel.png)
+
+### Panel: Catalog Graph
+
+The **Catalog Graph** panel can be used to show the catalog graph for an
+Backstage entity. The entity must be provided in the panel options via the
+`Entity` field in the following form: `kind:namespace/name`.
+
+![Dashboard with Backstage Catalog Graph Panel](https://raw.githubusercontent.com/ricoberger/grafana-backstage-plugin/refs/heads/main/src/img/screenshots/dashboard-with-backstage-catalog-graph-panel.png)
 
 ## Contributing
 
