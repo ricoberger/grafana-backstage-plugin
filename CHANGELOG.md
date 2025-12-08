@@ -1,5 +1,14 @@
 # Changelog
 
+## [v0.2.0](https://github.com/ricoberger/grafana-backstage-plugin/tree/v0.2.0) (2025-12-08)
+
+[Full Changelog](https://github.com/ricoberger/grafana-backstage-plugin/compare/v0.1.0...v0.2.0)
+
+- Adjust Documentation for Panels [\#16](https://github.com/ricoberger/grafana-backstage-plugin/pull/16) ([ricoberger](https://github.com/ricoberger))
+- Add Catalog Entities Panel [\#15](https://github.com/ricoberger/grafana-backstage-plugin/pull/15) ([ricoberger](https://github.com/ricoberger))
+- Add Entity Icons [\#14](https://github.com/ricoberger/grafana-backstage-plugin/pull/14) ([ricoberger](https://github.com/ricoberger))
+- Fix Catalog Table if no Dashboards are Defined [\#13](https://github.com/ricoberger/grafana-backstage-plugin/pull/13) ([ricoberger](https://github.com/ricoberger))
+
 ## [v0.1.0](https://github.com/ricoberger/grafana-backstage-plugin/tree/v0.1.0) (2025-12-04)
 
 [Full Changelog](https://github.com/ricoberger/grafana-backstage-plugin/compare/62cae8b01c9d38e8d881225eb1fd5363e707827a...v0.1.0)
