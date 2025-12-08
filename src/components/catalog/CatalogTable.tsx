@@ -12,6 +12,7 @@ import {
 } from '@grafana/ui';
 import { usePluginContext } from '@grafana/data';
 import { useAsync } from 'react-use';
+import { css, cx } from '@emotion/css';
 
 import {
   Filters,
@@ -21,6 +22,7 @@ import {
 } from '../../types/backstage';
 import { AppPluginSettings } from '../../types/settings';
 import { interpolateJSONPath } from '../../utils/utils.interpolate';
+import { getIcon } from '../../utils/utils.icons';
 
 interface Props {
   filters: Filters;
@@ -293,7 +295,18 @@ const NameCell = (props: any) => {
       entity,
     );
     if (link) {
-      return <TextLink href={`/d/${link}`}>{entity.metadata.name}</TextLink>;
+      return (
+        <Stack direction="row" alignItems="center" gap={1}>
+          <img
+            className={cx(css`
+              width: 14px;
+              height: 14px;
+            `)}
+            src={getIcon(entity.kind)}
+          />
+          <TextLink href={`/d/${link}`}>{entity.metadata.name}</TextLink>
+        </Stack>
+      );
     }
   }
 
@@ -303,21 +316,76 @@ const NameCell = (props: any) => {
   if (dashboards && dashboards.length === 1) {
     const link = interpolateJSONPath(dashboards[0][1], entity);
     if (link) {
-      return <TextLink href={`/d/${link}`}>{entity.metadata.name}</TextLink>;
+      return (
+        <Stack direction="row" alignItems="center" gap={1}>
+          <img
+            className={cx(css`
+              width: 14px;
+              height: 14px;
+            `)}
+            src={getIcon(entity.kind)}
+          />
+          <TextLink href={`/d/${link}`}>{entity.metadata.name}</TextLink>
+        </Stack>
+      );
     }
   }
 
-  return <span>{entity.metadata.name}</span>;
+  return (
+    <Stack direction="row" alignItems="center" gap={1}>
+      <img
+        className={cx(css`
+          width: 14px;
+          height: 14px;
+        `)}
+        src={getIcon(entity.kind)}
+      />
+      <span>{entity.metadata.name}</span>
+    </Stack>
+  );
 };
 
 const SystemCell = (props: any) => {
   const entity = props.row.original.entity as Entity;
-  return <span>{entity.spec.system}</span>;
+
+  if (!entity.spec.system) {
+    return <span></span>;
+  }
+
+  return (
+    <Stack direction="row" alignItems="center" gap={1}>
+      <img
+        className={cx(css`
+          width: 14px;
+          height: 14px;
+        `)}
+        src={getIcon('system')}
+      />
+      <span>{entity.spec.system}</span>
+    </Stack>
+  );
 };
 
 const OwnerCell = (props: any) => {
   const entity = props.row.original.entity as Entity;
-  return <span>{entity.spec.owner}</span>;
+  const kind = entity.spec.owner?.startsWith('user:') ? 'user' : 'group';
+
+  if (!entity.spec.owner) {
+    return <span></span>;
+  }
+
+  return (
+    <Stack direction="row" alignItems="center" gap={1}>
+      <img
+        className={cx(css`
+          width: 14px;
+          height: 14px;
+        `)}
+        src={getIcon(kind)}
+      />
+      <span>{entity.spec.owner}</span>
+    </Stack>
+  );
 };
 
 const TypeCell = (props: any) => {
