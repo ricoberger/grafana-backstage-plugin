@@ -101,6 +101,7 @@ export const Panel: React.FC<Props> = ({
 
       /**
        * Use the relation type to determine the direction of the edge.
+       * See: https://github.com/backstage/backstage/blob/master/plugins/catalog-graph/src/lib/types/relations.ts
        */
       let source = '';
       let target = '';
