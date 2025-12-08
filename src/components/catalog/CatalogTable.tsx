@@ -297,7 +297,7 @@ const NameCell = (props: any) => {
     }
   }
 
-  const dashboards = props.row.original.dashboards.filter(
+  const dashboards = props.row.original.dashboards?.filter(
     (dashboard: [string, string]) => dashboard[0] === entity.kind,
   );
   if (dashboards && dashboards.length === 1) {
