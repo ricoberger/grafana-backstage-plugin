@@ -56,6 +56,11 @@
   "includes": [
     {
       "type": "panel",
+      "name": "Backstage: Catalog Entities",
+      "path": "panel-catalog-entities/plugin.json"
+    },
+    {
+      "type": "panel",
       "name": "Backstage: Catalog Graph",
       "path": "panel-catalog-graph/plugin.json"
     },
