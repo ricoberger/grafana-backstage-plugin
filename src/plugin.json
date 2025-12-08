@@ -48,6 +48,10 @@
       {
         "name": "Dashboard with Backstage Catalog Graph Panel",
         "path": "img/screenshots/dashboard-with-backstage-catalog-graph-panel.png"
+      },
+      {
+        "name": "Dashboard with Backstage Catalog Entites Panel",
+        "path": "img/screenshots/dashboard-with-backstage-catalog-entities-panel.png"
       }
     ],
     "version": "%VERSION%",
