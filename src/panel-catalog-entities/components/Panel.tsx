@@ -7,7 +7,7 @@ import { Alert, Card, LoadingPlaceholder, ScrollContainer } from '@grafana/ui';
 
 import { Options } from '../types';
 import { EntitiesResult, Entity } from '../../types/backstage';
-import { getIcon } from '../icons';
+import { Icons } from '../../components/icons/Icons';
 import { interpolateJSONPath } from '../../utils/utils.interpolate';
 import { AppPluginSettings } from '../../types/settings';
 
@@ -197,7 +197,7 @@ export const Panel: React.FC<Props> = ({
             >
               <Card.Heading>{entity.metadata.name}</Card.Heading>
               <Card.Figure>
-                <img src={getIcon(entity.kind)} width="40" height="40" />
+                <Icons icon={entity.kind} size={40} />
               </Card.Figure>
               <Card.Description>{entity.metadata.description}</Card.Description>
             </Card>
