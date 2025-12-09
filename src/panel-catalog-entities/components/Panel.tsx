@@ -10,6 +10,7 @@ import { EntitiesResult, Entity } from '../../types/backstage';
 import { Icons } from '../../components/icons/Icons';
 import { interpolateJSONPath } from '../../utils/utils.interpolate';
 import { AppPluginSettings } from '../../types/settings';
+import { formatEntityRef } from '../../utils/utils.entities';
 
 const getEntites = async (entityRefs: string[]): Promise<Entity[]> => {
   const response = getBackendSrv().fetch({
@@ -98,7 +99,7 @@ export const Panel: React.FC<Props> = ({
     const settings = await getSettings();
     const user = await getUser();
 
-    const owner = replaceVariables(options.owner);
+    const owner = formatEntityRef(replaceVariables(options.owner));
     let groupRefs: string[] = [];
     let entities: Entity[] = [];
 
