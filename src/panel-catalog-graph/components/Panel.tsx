@@ -9,6 +9,7 @@ import { Alert, LoadingPlaceholder } from '@grafana/ui';
 import { Options } from '../types';
 import { EntitiesResult, Entity } from '../../types/backstage';
 import { Graph } from './Graph';
+import { formatEntityRef } from '../../utils/utils.entities';
 
 const getEntites = async (entityRefs: string[]): Promise<Entity[]> => {
   const response = getBackendSrv().fetch({
@@ -47,7 +48,7 @@ export const Panel: React.FC<Props> = ({
     /**
      * Get the entity spec and the entity spec for all relations.
      */
-    const entityId = replaceVariables(options.entity);
+    const entityId = formatEntityRef(replaceVariables(options.entity));
     const entity = (await getEntites([entityId]))[0];
     const relationEntites = (
       await getEntites(entity.relations.map((relation) => relation.targetRef))
