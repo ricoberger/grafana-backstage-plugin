@@ -2,7 +2,7 @@ import React from 'react';
 import { Node, Position, Handle, NodeProps } from '@xyflow/react';
 import { Stack, useTheme2 } from '@grafana/ui';
 
-import { getIcon } from '../icons';
+import { Icons } from '../../components/icons/Icons';
 
 export const nodeWidth = 172;
 export const nodeHeight = 36;
@@ -36,13 +36,7 @@ export const GraphNode: React.FC<
         }}
       >
         <Stack direction="row" alignItems="center" gap={0.25}>
-          <img
-            style={{
-              width: '6px',
-              height: '6px',
-            }}
-            src={getIcon(data.kind)}
-          />
+          <Icons icon={data.kind} size={6} />
           <span>{data.name}</span>
         </Stack>
       </div>

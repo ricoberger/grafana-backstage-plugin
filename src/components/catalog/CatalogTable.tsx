@@ -12,7 +12,6 @@ import {
 } from '@grafana/ui';
 import { usePluginContext } from '@grafana/data';
 import { useAsync } from 'react-use';
-import { css, cx } from '@emotion/css';
 
 import {
   Filters,
@@ -22,7 +21,7 @@ import {
 } from '../../types/backstage';
 import { AppPluginSettings } from '../../types/settings';
 import { interpolateJSONPath } from '../../utils/utils.interpolate';
-import { getIcon } from '../../utils/utils.icons';
+import { Icons } from '../icons/Icons';
 
 interface Props {
   filters: Filters;
@@ -297,13 +296,7 @@ const NameCell = (props: any) => {
     if (link) {
       return (
         <Stack direction="row" alignItems="center" gap={1}>
-          <img
-            className={cx(css`
-              width: 14px;
-              height: 14px;
-            `)}
-            src={getIcon(entity.kind)}
-          />
+          <Icons icon={entity.kind} size={14} />
           <TextLink href={`/d/${link}`}>{entity.metadata.name}</TextLink>
         </Stack>
       );
@@ -318,13 +311,7 @@ const NameCell = (props: any) => {
     if (link) {
       return (
         <Stack direction="row" alignItems="center" gap={1}>
-          <img
-            className={cx(css`
-              width: 14px;
-              height: 14px;
-            `)}
-            src={getIcon(entity.kind)}
-          />
+          <Icons icon={entity.kind} size={14} />
           <TextLink href={`/d/${link}`}>{entity.metadata.name}</TextLink>
         </Stack>
       );
@@ -333,13 +320,7 @@ const NameCell = (props: any) => {
 
   return (
     <Stack direction="row" alignItems="center" gap={1}>
-      <img
-        className={cx(css`
-          width: 14px;
-          height: 14px;
-        `)}
-        src={getIcon(entity.kind)}
-      />
+      <Icons icon={entity.kind} size={14} />
       <span>{entity.metadata.name}</span>
     </Stack>
   );
@@ -354,13 +335,7 @@ const SystemCell = (props: any) => {
 
   return (
     <Stack direction="row" alignItems="center" gap={1}>
-      <img
-        className={cx(css`
-          width: 14px;
-          height: 14px;
-        `)}
-        src={getIcon('system')}
-      />
+      <Icons icon="system" size={14} />
       <span>{entity.spec.system}</span>
     </Stack>
   );
@@ -376,13 +351,7 @@ const OwnerCell = (props: any) => {
 
   return (
     <Stack direction="row" alignItems="center" gap={1}>
-      <img
-        className={cx(css`
-          width: 14px;
-          height: 14px;
-        `)}
-        src={getIcon(kind)}
-      />
+      <Icons icon={kind} size={14} />
       <span>{entity.spec.owner}</span>
     </Stack>
   );
