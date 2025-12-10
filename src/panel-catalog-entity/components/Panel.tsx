@@ -1,8 +1,6 @@
 import React, { ReactNode } from 'react';
 import { PanelProps } from '@grafana/data';
-import { getBackendSrv, PanelDataErrorView } from '@grafana/runtime';
 import { useAsync } from 'react-use';
-import { lastValueFrom } from 'rxjs';
 import {
   Alert,
   Text,
@@ -14,81 +12,23 @@ import {
 } from '@grafana/ui';
 
 import { Options } from '../types';
-import { EntitiesResult, Entity } from '../../types/backstage';
+import { Entity } from '../../types/backstage';
 import { Icons } from '../../components/icons/Icons';
-import { interpolateJSONPath } from '../../utils/utils.interpolate';
 import { AppPluginSettings } from '../../types/settings';
-import { formatEntityRef } from '../../utils/utils.entities';
-
-const getEntity = async (entityRef: string): Promise<Entity | undefined> => {
-  const response = getBackendSrv().fetch({
-    url: `/api/plugins/ricoberger-backstage-app/resources/catalog/entities/by-refs`,
-    method: 'POST',
-    headers: {
-      Accept: 'application/json, */*',
-      'Content-Type': 'application/json',
-    },
-    data: { entityRefs: [entityRef] },
-  });
-  const result = await lastValueFrom(response);
-  const data = result.data as EntitiesResult;
-
-  if (!data.items || data.items.length !== 1) {
-    return undefined;
-  }
-  return data.items[0];
-};
-
-const getSettings = async (): Promise<AppPluginSettings> => {
-  const response = getBackendSrv().fetch({
-    url: `/api/plugins/ricoberger-backstage-app/settings`,
-    method: 'GET',
-  });
-  const result = await lastValueFrom(response);
-
-  return (result.data as { jsonData: AppPluginSettings }).jsonData;
-};
-
-const getLink = (
-  entity: Entity,
-  dashboards?: Array<[string, string]>,
-): string | undefined => {
-  if (
-    entity.metadata.annotations &&
-    entity.metadata.annotations['grafana.com/dashboard']
-  ) {
-    const link = interpolateJSONPath(
-      entity.metadata.annotations['grafana.com/dashboard'],
-      entity,
-    );
-    if (link) {
-      return `/d/${link}`;
-    }
-  }
-
-  const dashboard = dashboards?.filter(
-    (dashboard: [string, string]) => dashboard[0] === entity.kind,
-  );
-  if (dashboard && dashboard.length === 1) {
-    const link = interpolateJSONPath(dashboard[0][1], entity);
-    if (link) {
-      return `/d/${link}`;
-    }
-  }
-
-  return undefined;
-};
+import {
+  formatEntityRef,
+  getEntityByRef,
+  getLink,
+  getSettings,
+} from '../../utils/utils.entities';
 
 interface Props extends PanelProps<Options> { }
 
 export const Panel: React.FC<Props> = ({
   options,
-  data,
   width,
   height,
   replaceVariables,
-  fieldConfig,
-  id,
 }) => {
   const state = useAsync(async (): Promise<{
     settings: AppPluginSettings;
@@ -102,7 +42,7 @@ export const Panel: React.FC<Props> = ({
       replaceVariables(options.entity),
       'component',
     );
-    const entity = await getEntity(entityRef);
+    const entity = await getEntityByRef(entityRef);
 
     let ownerRef = entity?.spec.owner
       ? formatEntityRef(entity.spec.owner, 'group')
@@ -110,8 +50,8 @@ export const Panel: React.FC<Props> = ({
     let systemRef = entity?.spec.system
       ? formatEntityRef(entity.spec.system, 'system')
       : undefined;
-    const owner = ownerRef ? await getEntity(ownerRef) : undefined;
-    const system = systemRef ? await getEntity(systemRef) : undefined;
+    const owner = ownerRef ? await getEntityByRef(ownerRef) : undefined;
+    const system = systemRef ? await getEntityByRef(systemRef) : undefined;
 
     return { settings, entity, owner, system };
   }, [options.entity]);
@@ -157,17 +97,6 @@ export const Panel: React.FC<Props> = ({
       </Stack>
     );
   };
-
-  if (data.series.length === 0) {
-    return (
-      <PanelDataErrorView
-        fieldConfig={fieldConfig}
-        panelId={id}
-        data={data}
-        needsStringField
-      />
-    );
-  }
 
   if (state.loading) {
     return <LoadingPlaceholder text={'Loading...'} />;

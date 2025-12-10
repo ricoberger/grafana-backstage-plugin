@@ -1,45 +1,20 @@
 import React from 'react';
 import { PanelProps } from '@grafana/data';
-import { getBackendSrv, PanelDataErrorView } from '@grafana/runtime';
 import { useAsync } from 'react-use';
-import { lastValueFrom } from 'rxjs';
 import { Edge, Node } from '@xyflow/react';
 import { Alert, LoadingPlaceholder } from '@grafana/ui';
 
 import { Options } from '../types';
-import { EntitiesResult, Entity } from '../../types/backstage';
 import { Graph } from './Graph';
-import { formatEntityRef } from '../../utils/utils.entities';
-
-const getEntites = async (entityRefs: string[]): Promise<Entity[]> => {
-  const response = getBackendSrv().fetch({
-    url: `/api/plugins/ricoberger-backstage-app/resources/catalog/entities/by-refs`,
-    method: 'POST',
-    headers: {
-      Accept: 'application/json, */*',
-      'Content-Type': 'application/json',
-    },
-    data: { entityRefs: entityRefs },
-  });
-  const result = await lastValueFrom(response);
-  const data = result.data as EntitiesResult;
-
-  if (!data.items) {
-    return [];
-  }
-  return data.items;
-};
+import { formatEntityRef, getEntitesByRefs } from '../../utils/utils.entities';
 
 interface Props extends PanelProps<Options> { }
 
 export const Panel: React.FC<Props> = ({
   options,
-  data,
   width,
   height,
   replaceVariables,
-  fieldConfig,
-  id,
 }) => {
   const state = useAsync(async (): Promise<{
     nodes: Node[];
@@ -52,9 +27,11 @@ export const Panel: React.FC<Props> = ({
       replaceVariables(options.entity),
       'component',
     );
-    const entity = (await getEntites([entityId]))[0];
+    const entity = (await getEntitesByRefs([entityId]))[0];
     const relationEntites = (
-      await getEntites(entity.relations.map((relation) => relation.targetRef))
+      await getEntitesByRefs(
+        entity.relations.map((relation) => relation.targetRef),
+      )
     ).filter((entity) => entity !== null);
 
     /**
@@ -141,17 +118,6 @@ export const Panel: React.FC<Props> = ({
 
     return { nodes: nodes, edges: edges };
   }, [options.entity]);
-
-  if (data.series.length === 0) {
-    return (
-      <PanelDataErrorView
-        fieldConfig={fieldConfig}
-        panelId={id}
-        data={data}
-        needsStringField
-      />
-    );
-  }
 
   if (state.loading) {
     return <LoadingPlaceholder text={'Loading...'} />;
