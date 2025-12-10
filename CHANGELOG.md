@@ -1,5 +1,16 @@
 # Changelog
 
+## [v0.3.0](https://github.com/ricoberger/grafana-backstage-plugin/tree/v0.3.0) (2025-12-10)
+
+[Full Changelog](https://github.com/ricoberger/grafana-backstage-plugin/compare/v0.2.0...v0.3.0)
+
+- Simplify the Entities Panel Logic [\#22](https://github.com/ricoberger/grafana-backstage-plugin/pull/22) ([ricoberger](https://github.com/ricoberger))
+- Move Similar Functions to Utils [\#21](https://github.com/ricoberger/grafana-backstage-plugin/pull/21) ([ricoberger](https://github.com/ricoberger))
+- Adjust Dashboards [\#20](https://github.com/ricoberger/grafana-backstage-plugin/pull/20) ([ricoberger](https://github.com/ricoberger))
+- Add Catalog Entity Panel [\#19](https://github.com/ricoberger/grafana-backstage-plugin/pull/19) ([ricoberger](https://github.com/ricoberger))
+- Format Entity References [\#18](https://github.com/ricoberger/grafana-backstage-plugin/pull/18) ([ricoberger](https://github.com/ricoberger))
+- Fix Icons in Production Build [\#17](https://github.com/ricoberger/grafana-backstage-plugin/pull/17) ([ricoberger](https://github.com/ricoberger))
+
 ## [v0.2.0](https://github.com/ricoberger/grafana-backstage-plugin/tree/v0.2.0) (2025-12-08)
 
 [Full Changelog](https://github.com/ricoberger/grafana-backstage-plugin/compare/v0.1.0...v0.2.0)
