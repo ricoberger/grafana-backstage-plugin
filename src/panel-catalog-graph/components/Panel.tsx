@@ -48,7 +48,10 @@ export const Panel: React.FC<Props> = ({
     /**
      * Get the entity spec and the entity spec for all relations.
      */
-    const entityId = formatEntityRef(replaceVariables(options.entity));
+    const entityId = formatEntityRef(
+      replaceVariables(options.entity),
+      'component',
+    );
     const entity = (await getEntites([entityId]))[0];
     const relationEntites = (
       await getEntites(entity.relations.map((relation) => relation.targetRef))
