@@ -99,7 +99,7 @@ export const Panel: React.FC<Props> = ({
     const settings = await getSettings();
     const user = await getUser();
 
-    const owner = formatEntityRef(replaceVariables(options.owner));
+    const owner = formatEntityRef(replaceVariables(options.owner), 'group');
     let groupRefs: string[] = [];
     let entities: Entity[] = [];
 
@@ -173,7 +173,7 @@ export const Panel: React.FC<Props> = ({
 
   if (state.error) {
     return (
-      <Alert severity="error" title="Failed to load graph">
+      <Alert severity="error" title="Failed to load entities">
         {state.error.message}
       </Alert>
     );

@@ -65,6 +65,11 @@
     },
     {
       "type": "panel",
+      "name": "Backstage: Catalog Entity",
+      "path": "panel-catalog-entity/plugin.json"
+    },
+    {
+      "type": "panel",
       "name": "Backstage: Catalog Graph",
       "path": "panel-catalog-graph/plugin.json"
     },
