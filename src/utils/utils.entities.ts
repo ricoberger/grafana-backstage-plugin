@@ -84,6 +84,27 @@ export const getEntitesByRefs = async (
 };
 
 /**
+ * Fetches multiple entities from the Backstage catalog via the provided query.
+ */
+export const getEntitiesByQuery = async (query: string): Promise<Entity[]> => {
+  const response = getBackendSrv().fetch({
+    url: `/api/plugins/ricoberger-backstage-app/resources/catalog/entities/by-query?${query}`,
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, */*',
+      'Content-Type': 'application/json',
+    },
+  });
+  const result = await lastValueFrom(response);
+  const data = result.data as EntitiesResult;
+
+  if (!data.items) {
+    return [];
+  }
+  return data.items;
+};
+
+/**
  * Fetches the Backstage app plugin settings.
  */
 export const getSettings = async (): Promise<AppPluginSettings> => {

@@ -9,7 +9,7 @@ import { Icons } from '../../components/icons/Icons';
 import { AppPluginSettings } from '../../types/settings';
 import {
   formatEntityRef,
-  getEntitesByRefs,
+  getEntitiesByQuery,
   getLink,
   getSettings,
   getUserRef,
@@ -28,61 +28,29 @@ export const Panel: React.FC<Props> = ({
     entities: Entity[];
   }> => {
     const settings = await getSettings();
-    const userRef = await getUserRef();
+    const ownerRef = options.owner
+      ? formatEntityRef(replaceVariables(options.owner), 'group')
+      : await getUserRef();
 
-    const owner = formatEntityRef(replaceVariables(options.owner), 'group');
-    let groupRefs: string[] = [];
-    let entities: Entity[] = [];
+    const ownerRefs: string[] = [ownerRef];
 
-    if (!owner || owner.startsWith('user:')) {
-      const userEntities = await getEntitesByRefs([owner || userRef]);
-
-      const tmpGroupRefs = userEntities.flatMap((user) => {
-        const groups =
-          user.relations?.filter(
-            (relation) =>
-              relation.type === 'memberOf' ||
-              relation.type === 'hasMember' ||
-              relation.type === 'childOf',
-          ) || [];
-        return groups.map((group) => group.targetRef);
-      });
-      groupRefs.push(...tmpGroupRefs);
-
-      const tmpEntities = await getEntitesByRefs(
-        userEntities.flatMap((entity) => {
-          const entities =
-            entity.relations?.filter(
-              (relation) =>
-                relation.type !== 'memberOf' &&
-                relation.type !== 'hasMember' &&
-                relation.type !== 'childOf',
-            ) || [];
-          return entities.map((entity) => entity.targetRef);
-        }),
+    if (ownerRef.startsWith('user:')) {
+      const groups = await getEntitiesByQuery(
+        `filter=relations.hasMember=${ownerRef}`,
       );
-      entities.push(...tmpEntities);
-    } else if (owner.startsWith('group:')) {
-      groupRefs = [owner];
+      for (const group of groups) {
+        if (group) {
+          ownerRefs.push(
+            `group:${group.metadata.namespace || 'default'}/${group.metadata.name}`,
+          );
+        }
+      }
     }
 
-    if (groupRefs.length > 0) {
-      const groupEntities = await getEntitesByRefs(groupRefs);
-
-      const tmpEntities = await getEntitesByRefs(
-        groupEntities.flatMap((group) => {
-          const entities =
-            group.relations?.filter(
-              (relation) =>
-                relation.targetRef !== 'memberOf' &&
-                relation.type !== 'hasMember' &&
-                relation.type !== 'childOf',
-            ) || [];
-          return entities.map((entity) => entity.targetRef);
-        }),
-      );
-      entities.push(...tmpEntities);
-    }
+    const query = ownerRefs
+      .map((ownerRef) => `relations.ownedBy=${ownerRef}`)
+      .join(',');
+    const entities = await getEntitiesByQuery(`filter=${query}`);
 
     return { settings, entities };
   }, [options.owner]);
