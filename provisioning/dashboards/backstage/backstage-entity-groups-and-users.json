@@ -1,0 +1,179 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 0,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "uid": "grafana"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 7,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "entity": "${kind}:${namespace}/${name}"
+      },
+      "pluginVersion": "0.2.0",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "title": "Details",
+      "type": "ricoberger-backstagecatalogentity-panel"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 17,
+        "x": 7,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "entity": "${kind}:${namespace}/${name}"
+      },
+      "pluginVersion": "0.2.0",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "title": "Graph",
+      "type": "ricoberger-backstagecataloggraph-panel"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 3,
+      "options": {
+        "owner": "${kind}:${namespace}/${name}"
+      },
+      "pluginVersion": "0.2.0",
+      "targets": [
+        {
+          "refId": "A"
+        }
+      ],
+      "title": "Owned Entities",
+      "type": "ricoberger-backstagecatalogentities-panel"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "Group",
+          "value": "Group"
+        },
+        "description": "",
+        "hide": 2,
+        "label": "Kind",
+        "name": "kind",
+        "options": [
+          {
+            "selected": true,
+            "text": "Group",
+            "value": "Group"
+          }
+        ],
+        "query": "Group",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "default",
+          "value": "default"
+        },
+        "hide": 2,
+        "label": "Namespace",
+        "name": "namespace",
+        "options": [
+          {
+            "selected": true,
+            "text": "default",
+            "value": "default"
+          }
+        ],
+        "query": "default",
+        "type": "textbox"
+      },
+      {
+        "current": {
+          "text": "team-a",
+          "value": "team-a"
+        },
+        "hide": 2,
+        "label": "Name",
+        "name": "name",
+        "options": [
+          {
+            "selected": true,
+            "text": "team-a",
+            "value": "team-a"
+          }
+        ],
+        "query": "team-a",
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Backstage Entity (Groups and Users)",
+  "uid": "backstage-entity-groups-and-users",
+  "version": 1
+}

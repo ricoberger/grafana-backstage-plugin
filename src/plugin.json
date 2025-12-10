@@ -46,12 +46,12 @@
         "path": "img/screenshots/catalog.png"
       },
       {
-        "name": "Dashboard with Backstage Catalog Graph Panel",
-        "path": "img/screenshots/dashboard-with-backstage-catalog-graph-panel.png"
+        "name": "Dashboard: Backstagee Entity",
+        "path": "img/screenshots/dashboard-backstage-entity.png"
       },
       {
-        "name": "Dashboard with Backstage Catalog Entites Panel",
-        "path": "img/screenshots/dashboard-with-backstage-catalog-entities-panel.png"
+        "name": "Dashboard: Backstage Entity (Groups and Users)",
+        "path": "img/screenshots/dashboard-backstage-entity-groups-and-users.png"
       }
     ],
     "version": "%VERSION%",

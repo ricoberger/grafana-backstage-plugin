@@ -79,8 +79,6 @@ user, team or the currently logged in user. The entity must be provided in the
 panel options via the `Owner` field in the following form:
 `kind:namespace/name`.
 
-![Dashboard with Backstage Catalog Entities Panel](https://raw.githubusercontent.com/ricoberger/grafana-backstage-plugin/refs/heads/main/src/img/screenshots/dashboard-with-backstage-catalog-entities-panel.png)
-
 ### Panel: Catalog Entity
 
 The **Catalog Entity** panel can be used to show detailed information about a
@@ -93,7 +91,14 @@ The **Catalog Graph** panel can be used to show the catalog graph for an
 Backstage entity. The entity must be provided in the panel options via the
 `Entity` field in the following form: `kind:namespace/name`.
 
-![Dashboard with Backstage Catalog Graph Panel](https://raw.githubusercontent.com/ricoberger/grafana-backstage-plugin/refs/heads/main/src/img/screenshots/dashboard-with-backstage-catalog-graph-panel.png)
+<div align="center">
+  <table>
+    <tr>
+      <td><img src="https://raw.githubusercontent.com/ricoberger/grafana-backstage-plugin/refs/heads/main/src/img/screenshots/dashboard-backstage-entity.png" /></td>
+      <td><img src="https://raw.githubusercontent.com/ricoberger/grafana-backstage-plugin/refs/heads/main/src/img/screenshots/dashboard-backstage-entity-groups-and-users.png" /></td>
+    </tr>
+  </table>
+</div>
 
 ## Contributing
 
