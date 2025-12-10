@@ -9,12 +9,51 @@ apps:
       url: https://demo.backstage.io
       dashboards:
         - [
+            'API',
+            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
+            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+          ]
+        - [
             'Component',
-            'component?var-name={{ $.metadata.name }}&var-namespace={{
-            $.metadata.namespace }}&var-description={{ $.metadata.description
-            }}&var-owner={{ $.spec.owner }}&var-system={{ $.spec.system
-            }}&var-type={{ $.spec.type }}&var-lifecycle={{ $.spec.lifecycle
-            }}&var-tags={{ $.metadata.tags }}',
+            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
+            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+          ]
+        - [
+            'Domain',
+            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
+            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+          ]
+        - [
+            'Group',
+            'backstage-entity-groups-and-users?var-kind={{ $.kind
+            }}&var-namespace={{ $.metadata.namespace }}&var-name={{
+            $.metadata.name }}',
+          ]
+        - [
+            'Location',
+            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
+            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+          ]
+        - [
+            'Resource',
+            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
+            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+          ]
+        - [
+            'System',
+            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
+            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+          ]
+        - [
+            'Template',
+            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
+            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+          ]
+        - [
+            'User',
+            'backstage-entity-groups-and-users?var-kind={{ $.kind
+            }}&var-namespace={{ $.metadata.namespace }}&var-name={{
+            $.metadata.name }}',
           ]
     secureJsonData:
       apiKey:
