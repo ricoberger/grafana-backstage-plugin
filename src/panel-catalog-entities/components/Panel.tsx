@@ -1,110 +1,41 @@
 import React from 'react';
 import { PanelProps } from '@grafana/data';
-import { getBackendSrv, PanelDataErrorView } from '@grafana/runtime';
 import { useAsync } from 'react-use';
-import { lastValueFrom } from 'rxjs';
 import { Alert, Card, LoadingPlaceholder, ScrollContainer } from '@grafana/ui';
 
 import { Options } from '../types';
-import { EntitiesResult, Entity } from '../../types/backstage';
+import { Entity } from '../../types/backstage';
 import { Icons } from '../../components/icons/Icons';
-import { interpolateJSONPath } from '../../utils/utils.interpolate';
 import { AppPluginSettings } from '../../types/settings';
-import { formatEntityRef } from '../../utils/utils.entities';
-
-const getEntites = async (entityRefs: string[]): Promise<Entity[]> => {
-  const response = getBackendSrv().fetch({
-    url: `/api/plugins/ricoberger-backstage-app/resources/catalog/entities/by-refs`,
-    method: 'POST',
-    headers: {
-      Accept: 'application/json, */*',
-      'Content-Type': 'application/json',
-    },
-    data: { entityRefs: entityRefs },
-  });
-  const result = await lastValueFrom(response);
-  const data = result.data as EntitiesResult;
-
-  if (!data.items) {
-    return [];
-  }
-  return data.items;
-};
-
-const getSettings = async (): Promise<AppPluginSettings> => {
-  const response = getBackendSrv().fetch({
-    url: `/api/plugins/ricoberger-backstage-app/settings`,
-    method: 'GET',
-  });
-  const result = await lastValueFrom(response);
-
-  return (result.data as { jsonData: AppPluginSettings }).jsonData;
-};
-
-const getUser = async (): Promise<string> => {
-  const response = getBackendSrv().fetch({
-    url: `/api/user`,
-    method: 'GET',
-  });
-  const result = await lastValueFrom(response);
-
-  return (result.data as { login: string }).login;
-};
-
-const getLink = (
-  entity: Entity,
-  dashboards?: Array<[string, string]>,
-): string | undefined => {
-  if (
-    entity.metadata.annotations &&
-    entity.metadata.annotations['grafana.com/dashboard']
-  ) {
-    const link = interpolateJSONPath(
-      entity.metadata.annotations['grafana.com/dashboard'],
-      entity,
-    );
-    if (link) {
-      return `/d/${link}`;
-    }
-  }
-
-  const dashboard = dashboards?.filter(
-    (dashboard: [string, string]) => dashboard[0] === entity.kind,
-  );
-  if (dashboard && dashboard.length === 1) {
-    const link = interpolateJSONPath(dashboard[0][1], entity);
-    if (link) {
-      return `/d/${link}`;
-    }
-  }
-
-  return undefined;
-};
+import {
+  formatEntityRef,
+  getEntitesByRefs,
+  getLink,
+  getSettings,
+  getUserRef,
+} from '../../utils/utils.entities';
 
 interface Props extends PanelProps<Options> { }
 
 export const Panel: React.FC<Props> = ({
   options,
-  data,
   width,
   height,
   replaceVariables,
-  fieldConfig,
-  id,
 }) => {
   const state = useAsync(async (): Promise<{
     settings: AppPluginSettings;
     entities: Entity[];
   }> => {
     const settings = await getSettings();
-    const user = await getUser();
+    const userRef = await getUserRef();
 
     const owner = formatEntityRef(replaceVariables(options.owner), 'group');
     let groupRefs: string[] = [];
     let entities: Entity[] = [];
 
     if (!owner || owner.startsWith('user:')) {
-      const userEntities = await getEntites([owner || `user:default/${user}`]);
+      const userEntities = await getEntitesByRefs([owner || userRef]);
 
       const tmpGroupRefs = userEntities.flatMap((user) => {
         const groups =
@@ -118,7 +49,7 @@ export const Panel: React.FC<Props> = ({
       });
       groupRefs.push(...tmpGroupRefs);
 
-      const tmpEntities = await getEntites(
+      const tmpEntities = await getEntitesByRefs(
         userEntities.flatMap((entity) => {
           const entities =
             entity.relations?.filter(
@@ -136,9 +67,9 @@ export const Panel: React.FC<Props> = ({
     }
 
     if (groupRefs.length > 0) {
-      const groupEntities = await getEntites(groupRefs);
+      const groupEntities = await getEntitesByRefs(groupRefs);
 
-      const tmpEntities = await getEntites(
+      const tmpEntities = await getEntitesByRefs(
         groupEntities.flatMap((group) => {
           const entities =
             group.relations?.filter(
@@ -155,17 +86,6 @@ export const Panel: React.FC<Props> = ({
 
     return { settings, entities };
   }, [options.owner]);
-
-  if (data.series.length === 0) {
-    return (
-      <PanelDataErrorView
-        fieldConfig={fieldConfig}
-        panelId={id}
-        data={data}
-        needsStringField
-      />
-    );
-  }
 
   if (state.loading) {
     return <LoadingPlaceholder text={'Loading...'} />;
