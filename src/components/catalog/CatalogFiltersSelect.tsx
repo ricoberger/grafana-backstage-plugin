@@ -38,7 +38,10 @@ export function CatalogFiltersSelect<T>({
       method: 'GET',
     });
     const result = await lastValueFrom(response);
-    return (result.data as string[]).map((value) => ({ value: value }));
+    return (result.data as string[]).map((value) => ({
+      label: value,
+      value: value,
+    }));
   }, [facet, kind]);
 
   // eslint-disable-next-line @typescript-eslint/array-type
