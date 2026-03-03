@@ -3,6 +3,7 @@
   "type": "panel",
   "name": "Backstage: Catalog Entities",
   "id": "ricoberger-backstagecatalogentities-panel",
+  "skipDataQuery": true,
   "info": {
     "description": "",
     "author": {
