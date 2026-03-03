@@ -81,7 +81,7 @@ export const Panel: React.FC<Props> = ({
     const link = getLink(entity, settings.dashboards);
     if (link) {
       return (
-        <TextLink href={link}>
+        <TextLink href={link} external={true}>
           <Stack direction="row" alignItems="center" gap={1}>
             <Icons icon={entity.kind} size={14} />
             <span>{entity.metadata.name}</span>
