@@ -12,7 +12,7 @@ catalog entries to your Grafana dashboards.
 - View the graph of your Backstage service catalog entities
 - Link your Backstage service catalog entries to your Grafana dashboards
   - Define default dashboards for entity kinds via the configuration
-  - Link dashboards via the `grafana.com/dashboard` annotation
+  - Link dashboards via the `grafana.com/link` annotation
 
 ## Installation
 
@@ -59,7 +59,7 @@ which can be used by the plugin to access the Backstage API.
 
 In the **Dashboards** section you can define default dashboards for your
 Backstage entity kinds. The plugin will use these dashboards when no dashboard
-is defined via the `grafana.com/dashboard` annotation.
+is defined via the `grafana.com/link` annotation.
 
 - **Kind**: The Backstage entity kind (e.g. `Component`, `API`, `System`, etc.)
 - **Dashboard**: The link to the Grafana dashboard (e.g.
@@ -69,8 +69,8 @@ is defined via the `grafana.com/dashboard` annotation.
   properties of the Backstage entity using
   [JSONPath](https://www.npmjs.com/package/jsonpath-plus) syntax.
 - **Annotation**: Instead of using the default dashboard defined for the entity
-  kind, you can also define the dashboard via the `grafana.com/dashboard`
-  annotation on the Backstage entity.
+  kind, you can also define the dashboard via the `grafana.com/link` annotation
+  on the Backstage entity.
 
 ### Panel: Catalog Entities
 

@@ -287,17 +287,17 @@ const NameCell = (props: any) => {
 
   if (
     entity.metadata.annotations &&
-    entity.metadata.annotations['grafana.com/dashboard']
+    entity.metadata.annotations['grafana.com/link']
   ) {
     const link = interpolateJSONPath(
-      entity.metadata.annotations['grafana.com/dashboard'],
+      entity.metadata.annotations['grafana.com/link'],
       entity,
     );
     if (link) {
       return (
         <Stack direction="row" alignItems="center" gap={1}>
           <Icons icon={entity.kind} size={14} />
-          <TextLink href={`/d/${link}`}>{entity.metadata.name}</TextLink>
+          <TextLink href={link}>{entity.metadata.name}</TextLink>
         </Stack>
       );
     }
@@ -312,7 +312,7 @@ const NameCell = (props: any) => {
       return (
         <Stack direction="row" alignItems="center" gap={1}>
           <Icons icon={entity.kind} size={14} />
-          <TextLink href={`/d/${link}`}>{entity.metadata.name}</TextLink>
+          <TextLink href={link}>{entity.metadata.name}</TextLink>
         </Stack>
       );
     }
