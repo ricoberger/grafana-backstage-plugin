@@ -3,6 +3,7 @@
   "type": "panel",
   "name": "Backstage: Catalog Graph",
   "id": "ricoberger-backstagecataloggraph-panel",
+  "skipDataQuery": true,
   "info": {
     "description": "",
     "author": {
