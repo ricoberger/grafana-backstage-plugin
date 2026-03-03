@@ -140,14 +140,14 @@ export const getLink = (
 ): string | undefined => {
   if (
     entity.metadata.annotations &&
-    entity.metadata.annotations['grafana.com/dashboard']
+    entity.metadata.annotations['grafana.com/link']
   ) {
     const link = interpolateJSONPath(
-      entity.metadata.annotations['grafana.com/dashboard'],
+      entity.metadata.annotations['grafana.com/link'],
       entity,
     );
     if (link) {
-      return `/d/${link}`;
+      return link;
     }
   }
 
@@ -157,7 +157,7 @@ export const getLink = (
   if (dashboard && dashboard.length === 1) {
     const link = interpolateJSONPath(dashboard[0][1], entity);
     if (link) {
-      return `/d/${link}`;
+      return link;
     }
   }
 

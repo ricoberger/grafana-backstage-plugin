@@ -10,49 +10,56 @@ apps:
       dashboards:
         - [
             'API',
-            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
-            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
-          ]
-        - [
-            'Component',
-            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
-            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
-          ]
-        - [
-            'Domain',
-            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
-            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
-          ]
-        - [
-            'Group',
-            'backstage-entity-groups-and-users?var-kind={{ $.kind
+            '/d/backstage-entity/backstage-entity?var-kind={{ $.kind
             }}&var-namespace={{ $.metadata.namespace }}&var-name={{
             $.metadata.name }}',
           ]
         - [
+            'Component',
+            '/d/backstage-entity/backstage-entity?var-kind={{ $.kind
+            }}&var-namespace={{ $.metadata.namespace }}&var-name={{
+            $.metadata.name }}',
+          ]
+        - [
+            'Domain',
+            '/d/backstage-entity/backstage-entity?var-kind={{ $.kind
+            }}&var-namespace={{ $.metadata.namespace }}&var-name={{
+            $.metadata.name }}',
+          ]
+        - [
+            'Group',
+            '/d/backstage-entity-groups-and-users/backstage-entity-groups-and-users?var-kind={{
+            $.kind }}&var-namespace={{ $.metadata.namespace }}&var-name={{
+            $.metadata.name }}',
+          ]
+        - [
             'Location',
-            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
-            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+            '/d/backstage-entity/backstage-entity?var-kind={{ $.kind
+            }}&var-namespace={{ $.metadata.namespace }}&var-name={{
+            $.metadata.name }}',
           ]
         - [
             'Resource',
-            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
-            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+            '/d/backstage-entity/backstage-entity?var-kind={{ $.kind
+            }}&var-namespace={{ $.metadata.namespace }}&var-name={{
+            $.metadata.name }}',
           ]
         - [
             'System',
-            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
-            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+            '/d/backstage-entity/backstage-entity?var-kind={{ $.kind
+            }}&var-namespace={{ $.metadata.namespace }}&var-name={{
+            $.metadata.name }}',
           ]
         - [
             'Template',
-            'backstage-entity?var-kind={{ $.kind }}&var-namespace={{
-            $.metadata.namespace }}&var-name={{ $.metadata.name }}',
+            '/d/backstage-entity/backstage-entity?var-kind={{ $.kind
+            }}&var-namespace={{ $.metadata.namespace }}&var-name={{
+            $.metadata.name }}',
           ]
         - [
             'User',
-            'backstage-entity-groups-and-users?var-kind={{ $.kind
-            }}&var-namespace={{ $.metadata.namespace }}&var-name={{
+            '/d/backstage-entity-groups-and-users/backstage-entity-groups-and-users?var-kind={{
+            $.kind }}&var-namespace={{ $.metadata.namespace }}&var-name={{
             $.metadata.name }}',
           ]
     secureJsonData:
