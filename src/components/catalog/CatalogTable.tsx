@@ -124,7 +124,7 @@ function convertEntitiesToTableData(
         { id: 'lifecycle', header: 'Lifecycle', cell: LifecycleCell },
         { id: 'description', header: 'Description', cell: DescriptionCell },
         { id: 'tags', header: 'Tags', cell: TagsCell },
-        { id: 'backstage', header: '', cell: BackstageCell },
+        { id: 'backstage', header: '', cell: LinksCell },
       ],
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
@@ -145,7 +145,7 @@ function convertEntitiesToTableData(
         { id: 'lifecycle', header: 'Lifecycle', cell: LifecycleCell },
         { id: 'description', header: 'Description', cell: DescriptionCell },
         { id: 'tags', header: 'Tags', cell: TagsCell },
-        { id: 'backstage', header: '', cell: BackstageCell },
+        { id: 'backstage', header: '', cell: LinksCell },
       ],
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
@@ -163,7 +163,7 @@ function convertEntitiesToTableData(
         { id: 'owner', header: 'Owner', cell: OwnerCell },
         { id: 'description', header: 'Description', cell: DescriptionCell },
         { id: 'tags', header: 'Tags', cell: TagsCell },
-        { id: 'backstage', header: '', cell: BackstageCell },
+        { id: 'backstage', header: '', cell: LinksCell },
       ],
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
@@ -181,7 +181,7 @@ function convertEntitiesToTableData(
         { id: 'type', header: 'Type', cell: TypeCell },
         { id: 'description', header: 'Description', cell: DescriptionCell },
         { id: 'tags', header: 'Tags', cell: TagsCell },
-        { id: 'backstage', header: '', cell: BackstageCell },
+        { id: 'backstage', header: '', cell: LinksCell },
       ],
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
@@ -198,7 +198,7 @@ function convertEntitiesToTableData(
         { id: 'name', header: 'Name', cell: NameCell },
         { id: 'type', header: 'Type', cell: TypeCell },
         { id: 'target', header: 'Targets', cell: TargetCell },
-        { id: 'backstage', header: '', cell: BackstageCell },
+        { id: 'backstage', header: '', cell: LinksCell },
       ],
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
@@ -219,7 +219,7 @@ function convertEntitiesToTableData(
         { id: 'lifecycle', header: 'Lifecycle', cell: LifecycleCell },
         { id: 'description', header: 'Description', cell: DescriptionCell },
         { id: 'tags', header: 'Tags', cell: TagsCell },
-        { id: 'backstage', header: '', cell: BackstageCell },
+        { id: 'backstage', header: '', cell: LinksCell },
       ],
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
@@ -237,7 +237,7 @@ function convertEntitiesToTableData(
         { id: 'owner', header: 'Owner', cell: OwnerCell },
         { id: 'description', header: 'Description', cell: DescriptionCell },
         { id: 'tags', header: 'Tags', cell: TagsCell },
-        { id: 'backstage', header: '', cell: BackstageCell },
+        { id: 'backstage', header: '', cell: LinksCell },
       ],
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
@@ -254,7 +254,7 @@ function convertEntitiesToTableData(
         { id: 'name', header: 'Name', cell: NameCell },
         { id: 'description', header: 'Description', cell: DescriptionCell },
         { id: 'tags', header: 'Tags', cell: TagsCell },
-        { id: 'backstage', header: '', cell: BackstageCell },
+        { id: 'backstage', header: '', cell: LinksCell },
       ],
       data: entities.map((entity) => ({
         id: entity.metadata.uid,
@@ -271,7 +271,7 @@ function convertEntitiesToTableData(
       { id: 'owner', header: 'Owner', cell: OwnerCell },
       { id: 'description', header: 'Description', cell: DescriptionCell },
       { id: 'tags', header: 'Tags', cell: TagsCell },
-      { id: 'backstage', header: '', cell: BackstageCell },
+      { id: 'backstage', header: '', cell: LinksCell },
     ],
     data: entities.map((entity) => ({
       id: entity.metadata.uid,
@@ -394,10 +394,22 @@ const TargetCell = (props: any) => {
   );
 };
 
-const BackstageCell = (props: any) => {
+const LinksCell = (props: any) => {
   const entity = props.row.original.entity as Entity;
   return (
-    <span>
+    <Stack direction="row" gap={1} wrap={true}>
+      {entity.metadata.links?.map((link: { url?: string; title?: string }) => (
+        <LinkButton
+          key={link.url}
+          variant="secondary"
+          icon="external-link-alt"
+          size="sm"
+          href={link.url}
+          target="_blank"
+        >
+          {link.title || link.url}
+        </LinkButton>
+      ))}
       <LinkButton
         variant="secondary"
         icon="external-link-alt"
@@ -407,6 +419,6 @@ const BackstageCell = (props: any) => {
       >
         Backstage
       </LinkButton>
-    </span>
+    </Stack>
   );
 };
