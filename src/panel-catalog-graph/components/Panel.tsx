@@ -16,6 +16,11 @@ export const Panel: React.FC<Props> = ({
   height,
   replaceVariables,
 }) => {
+  const entityRef = formatEntityRef(
+    replaceVariables(options.entity),
+    'component',
+  );
+
   const state = useAsync(async (): Promise<{
     nodes: Node[];
     edges: Edge[];
@@ -23,11 +28,7 @@ export const Panel: React.FC<Props> = ({
     /**
      * Get the entity spec and the entity spec for all relations.
      */
-    const entityId = formatEntityRef(
-      replaceVariables(options.entity),
-      'component',
-    );
-    const entity = (await getEntitesByRefs([entityId]))[0];
+    const entity = (await getEntitesByRefs([entityRef]))[0];
     const relationEntites = (
       await getEntitesByRefs(
         entity.relations.map((relation) => relation.targetRef),
@@ -41,7 +42,7 @@ export const Panel: React.FC<Props> = ({
      */
     const nodes = [
       {
-        id: entityId,
+        id: entityRef,
         type: 'catalog',
         data: {
           isRoot: true,
@@ -60,16 +61,16 @@ export const Panel: React.FC<Props> = ({
        * relation types bwtween the entity and the relation and the relation and
        * the entity.
        */
-      const relationEntityId = `${relationEntity.kind.toLowerCase()}:${relationEntity.metadata.namespace}/${relationEntity.metadata.name}`;
+      const relationEntityRef = `${relationEntity.kind.toLowerCase()}:${relationEntity.metadata.namespace}/${relationEntity.metadata.name}`;
       const relationEntityRelationType = relationEntity.relations.filter(
-        (relation) => relation.targetRef === entityId,
+        (relation) => relation.targetRef === entityRef,
       )[0].type;
       const entityRelationType = entity.relations.filter(
-        (r) => r.targetRef === relationEntityId,
+        (r) => r.targetRef === relationEntityRef,
       )[0].type;
 
       nodes.push({
-        id: relationEntityId,
+        id: relationEntityRef,
         type: 'catalog',
         data: {
           isRoot: false,
@@ -98,12 +99,12 @@ export const Panel: React.FC<Props> = ({
           'dependencyOf',
         ].includes(entityRelationType)
       ) {
-        source = relationEntityId;
-        target = entityId;
+        source = relationEntityRef;
+        target = entityRef;
         label = `${relationEntityRelationType} / ${entityRelationType}`;
       } else {
-        source = entityId;
-        target = relationEntityId;
+        source = entityRef;
+        target = relationEntityRef;
         label = `${entityRelationType} / ${relationEntityRelationType}`;
       }
 
@@ -117,7 +118,7 @@ export const Panel: React.FC<Props> = ({
     }
 
     return { nodes: nodes, edges: edges };
-  }, [options.entity]);
+  }, [entityRef]);
 
   if (state.loading) {
     return <LoadingPlaceholder text={'Loading...'} />;
