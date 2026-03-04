@@ -23,14 +23,14 @@ export const Panel: React.FC<Props> = ({
   height,
   replaceVariables,
 }) => {
+  const entityRef = formatEntityRef(replaceVariables(options.owner), 'group');
+
   const state = useAsync(async (): Promise<{
     settings: AppPluginSettings;
     entities: Entity[];
   }> => {
     const settings = await getSettings();
-    const ownerRef = options.owner
-      ? formatEntityRef(replaceVariables(options.owner), 'group')
-      : await getUserRef();
+    const ownerRef = options.owner ? entityRef : await getUserRef();
 
     const ownerRefs: string[] = [ownerRef];
 

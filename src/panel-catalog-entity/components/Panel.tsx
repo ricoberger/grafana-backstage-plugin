@@ -30,6 +30,11 @@ export const Panel: React.FC<Props> = ({
   height,
   replaceVariables,
 }) => {
+  const entityRef = formatEntityRef(
+    replaceVariables(options.entity),
+    'component',
+  );
+
   const state = useAsync(async (): Promise<{
     settings: AppPluginSettings;
     entity?: Entity;
@@ -38,10 +43,6 @@ export const Panel: React.FC<Props> = ({
   }> => {
     const settings = await getSettings();
 
-    const entityRef = formatEntityRef(
-      replaceVariables(options.entity),
-      'component',
-    );
     const entity = await getEntityByRef(entityRef);
 
     let ownerRef = entity?.spec.owner
@@ -54,7 +55,7 @@ export const Panel: React.FC<Props> = ({
     const system = systemRef ? await getEntityByRef(systemRef) : undefined;
 
     return { settings, entity, owner, system };
-  }, [options.entity]);
+  }, [entityRef]);
 
   const renderLink = (
     settings: AppPluginSettings,
@@ -81,7 +82,7 @@ export const Panel: React.FC<Props> = ({
     const link = getLink(entity, settings.dashboards);
     if (link) {
       return (
-        <TextLink href={link} external={true}>
+        <TextLink href={link}>
           <Stack direction="row" alignItems="center" gap={1}>
             <Icons icon={entity.kind} size={14} />
             <span>{entity.metadata.name}</span>
