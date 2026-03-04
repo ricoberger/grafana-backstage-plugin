@@ -9,6 +9,7 @@ import {
   Stack,
   Badge,
   TextLink,
+  LinkButton,
 } from '@grafana/ui';
 
 import { Options } from '../types';
@@ -173,6 +174,18 @@ export const Panel: React.FC<Props> = ({
               </Stack>
             </Stack>
           )}
+          <Stack direction="column" gap={0}>
+            <Text weight="bold">Links</Text>
+            <LinkButton
+              variant="secondary"
+              icon="external-link-alt"
+              size="sm"
+              href={`${state.value.settings.url}/catalog/${state.value.entity.metadata.namespace}/${state.value.entity.kind.toLowerCase()}/${state.value.entity.metadata.name}`}
+              target="_blank"
+            >
+              Backstage
+            </LinkButton>
+          </Stack>
         </Stack>
       </Stack>
     </ScrollContainer>
