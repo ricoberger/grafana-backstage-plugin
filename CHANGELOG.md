@@ -1,5 +1,19 @@
 # Changelog
 
+## [v0.4.0](https://github.com/ricoberger/grafana-backstage-plugin/tree/v0.4.0) (2026-03-04)
+
+[Full Changelog](https://github.com/ricoberger/grafana-backstage-plugin/compare/v0.3.0...v0.4.0)
+
+- Add Link to Backstage to Entity Panel [\#43](https://github.com/ricoberger/grafana-backstage-plugin/pull/43) ([ricoberger](https://github.com/ricoberger))
+- Update Panels when Options are Changed [\#42](https://github.com/ricoberger/grafana-backstage-plugin/pull/42) ([ricoberger](https://github.com/ricoberger))
+- Mark Links in Catalog Entity Panel as External [\#41](https://github.com/ricoberger/grafana-backstage-plugin/pull/41) ([ricoberger](https://github.com/ricoberger))
+- Set `skipDataQuery` for Panel Plugins [\#40](https://github.com/ricoberger/grafana-backstage-plugin/pull/40) ([ricoberger](https://github.com/ricoberger))
+- Replace Grafana Annotation [\#39](https://github.com/ricoberger/grafana-backstage-plugin/pull/39) ([ricoberger](https://github.com/ricoberger))
+- chore: bump @grafana/create-plugin configuration to 7.0.0 [\#35](https://github.com/ricoberger/grafana-backstage-plugin/pull/35) ([ricoberger](https://github.com/ricoberger))
+- chore: bump @grafana/create-plugin configuration to 6.8.3 [\#28](https://github.com/ricoberger/grafana-backstage-plugin/pull/28) ([ricoberger](https://github.com/ricoberger))
+- chore: bump @grafana/create-plugin configuration to 6.6.0 [\#24](https://github.com/ricoberger/grafana-backstage-plugin/pull/24) ([ricoberger](https://github.com/ricoberger))
+- Fix Catalog Filters Combobox [\#23](https://github.com/ricoberger/grafana-backstage-plugin/pull/23) ([ricoberger](https://github.com/ricoberger))
+
 ## [v0.3.0](https://github.com/ricoberger/grafana-backstage-plugin/tree/v0.3.0) (2025-12-10)
 
 [Full Changelog](https://github.com/ricoberger/grafana-backstage-plugin/compare/v0.2.0...v0.3.0)
