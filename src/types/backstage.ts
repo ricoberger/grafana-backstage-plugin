@@ -27,6 +27,7 @@ export type Entity = {
     name?: string;
     description?: string;
     tags?: string[];
+    links?: Array<{ url?: string; title?: string }>;
     uid: string;
   };
   spec: {
