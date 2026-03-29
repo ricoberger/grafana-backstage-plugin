@@ -1,11 +1,10 @@
-import React from 'react';
 import { PanelProps } from '@grafana/data';
-import { useAsync } from 'react-use';
 import { Alert, Card, LoadingPlaceholder, ScrollContainer } from '@grafana/ui';
+import React from 'react';
+import { useAsync } from 'react-use';
 
-import { Options } from '../types';
-import { Entity } from '../../types/backstage';
 import { Icons } from '../../components/icons/Icons';
+import { Entity } from '../../types/backstage';
 import { AppPluginSettings } from '../../types/settings';
 import {
   formatEntityRef,
@@ -14,15 +13,11 @@ import {
   getSettings,
   getUserRef,
 } from '../../utils/utils.entities';
+import { Options } from '../types';
 
 interface Props extends PanelProps<Options> { }
 
-export const Panel: React.FC<Props> = ({
-  options,
-  width,
-  height,
-  replaceVariables,
-}) => {
+export function Panel({ options, width, height, replaceVariables }: Props) {
   const entityRef = formatEntityRef(replaceVariables(options.owner), 'group');
 
   const state = useAsync(async (): Promise<{
@@ -95,4 +90,4 @@ export const Panel: React.FC<Props> = ({
       </ul>
     </ScrollContainer>
   );
-};
+}

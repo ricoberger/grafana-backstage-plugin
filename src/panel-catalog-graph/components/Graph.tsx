@@ -1,25 +1,25 @@
-import React from 'react';
+import { css, cx } from '@emotion/css';
 import {
-  Edge,
   ConnectionLineType,
+  Edge,
   Node,
   Position,
   ReactFlow,
 } from '@xyflow/react';
 import dagre from 'dagre';
-import { css, cx } from '@emotion/css';
+import React from 'react';
 
 import { GraphEdge } from './GraphEdge';
 import { GraphNode, nodeHeight, nodeWidth } from './GraphNode';
 
 import '@xyflow/react/dist/style.css';
 
-const getLayoutedElements = (
+function getLayoutedElements(
   dagreGraph: dagre.graphlib.Graph,
   nodes: Node[],
   edges: Edge[],
   direction = 'LR',
-): { nodes: Node[]; edges: Edge[] } => {
+): { nodes: Node[]; edges: Edge[] } {
   const isHorizontal = direction === 'LR';
   dagreGraph.setGraph({ rankdir: direction });
 
@@ -49,14 +49,19 @@ const getLayoutedElements = (
   });
 
   return { nodes: newNodes, edges };
-};
+}
 
-export const Graph: React.FC<{
+export function Graph({
+  width,
+  height,
+  initialNodes,
+  initialEdges,
+}: {
   width: number;
   height: number;
   initialNodes: Node[];
   initialEdges: Edge[];
-}> = ({ width, height, initialNodes, initialEdges }) => {
+}) {
   const dagreGraph = new dagre.graphlib.Graph();
   dagreGraph.setDefaultEdgeLabel(() => ({}));
   const { nodes, edges } = getLayoutedElements(
@@ -92,4 +97,4 @@ export const Graph: React.FC<{
       ></ReactFlow>
     </div>
   );
-};
+}

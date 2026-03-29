@@ -7,7 +7,7 @@ import {
   getBezierPath,
 } from '@xyflow/react';
 
-export const GraphEdge: React.FC<EdgeProps<Edge<{ label: string }>>> = ({
+export function GraphEdge({
   id,
   sourceX,
   sourceY,
@@ -16,7 +16,7 @@ export const GraphEdge: React.FC<EdgeProps<Edge<{ label: string }>>> = ({
   sourcePosition,
   targetPosition,
   label,
-}) => {
+}: EdgeProps<Edge<{ label: string }>>) {
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
@@ -42,4 +42,4 @@ export const GraphEdge: React.FC<EdgeProps<Edge<{ label: string }>>> = ({
       </EdgeLabelRenderer>
     </>
   );
-};
+}

@@ -10,12 +10,7 @@ import { formatEntityRef, getEntitesByRefs } from '../../utils/utils.entities';
 
 interface Props extends PanelProps<Options> { }
 
-export const Panel: React.FC<Props> = ({
-  options,
-  width,
-  height,
-  replaceVariables,
-}) => {
+export function Panel({ options, width, height, replaceVariables }: Props) {
   const entityRef = formatEntityRef(
     replaceVariables(options.entity),
     'component',
@@ -140,4 +135,4 @@ export const Panel: React.FC<Props> = ({
       initialEdges={state.value!.edges}
     />
   );
-};
+}
