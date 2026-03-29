@@ -1,7 +1,7 @@
 import { getBackendSrv } from '@grafana/runtime';
 import { lastValueFrom } from 'rxjs';
 
-import { Entity, EntitiesResult } from '../types/backstage';
+import { EntitiesResult, Entity } from '../types/backstage';
 import { AppPluginSettings } from '../types/settings';
 import { interpolateJSONPath } from './utils.interpolate';
 
@@ -9,10 +9,10 @@ import { interpolateJSONPath } from './utils.interpolate';
  * Formats an entity reference string to ensure that the reference can be used
  * to query the backstage API.
  */
-export const formatEntityRef = (
+export function formatEntityRef(
   entityRef: string,
   defaultKind: string,
-): string => {
+): string {
   const refParts = entityRef.split(':');
   if (refParts.length === 2) {
     const kind = refParts[0].toLowerCase();
@@ -33,14 +33,14 @@ export const formatEntityRef = (
   } else {
     return entityRef;
   }
-};
+}
 
 /**
  * Fetches an entity from the Backstage catalog by its reference.
  */
-export const getEntityByRef = async (
+export async function getEntityByRef(
   entityRef: string,
-): Promise<Entity | undefined> => {
+): Promise<Entity | undefined> {
   const response = getBackendSrv().fetch({
     url: `/api/plugins/ricoberger-backstage-app/resources/catalog/entities/by-refs`,
     method: 'POST',
@@ -57,14 +57,14 @@ export const getEntityByRef = async (
     return undefined;
   }
   return data.items[0];
-};
+}
 
 /**
  * Fetches multiple entities from the Backstage catalog by their references.
  */
-export const getEntitesByRefs = async (
+export async function getEntitesByRefs(
   entityRefs: string[],
-): Promise<Entity[]> => {
+): Promise<Entity[]> {
   const response = getBackendSrv().fetch({
     url: `/api/plugins/ricoberger-backstage-app/resources/catalog/entities/by-refs`,
     method: 'POST',
@@ -81,12 +81,12 @@ export const getEntitesByRefs = async (
     return [];
   }
   return data.items;
-};
+}
 
 /**
  * Fetches multiple entities from the Backstage catalog via the provided query.
  */
-export const getEntitiesByQuery = async (query: string): Promise<Entity[]> => {
+export async function getEntitiesByQuery(query: string): Promise<Entity[]> {
   const response = getBackendSrv().fetch({
     url: `/api/plugins/ricoberger-backstage-app/resources/catalog/entities/by-query?${query}`,
     method: 'GET',
@@ -102,12 +102,12 @@ export const getEntitiesByQuery = async (query: string): Promise<Entity[]> => {
     return [];
   }
   return data.items;
-};
+}
 
 /**
  * Fetches the Backstage app plugin settings.
  */
-export const getSettings = async (): Promise<AppPluginSettings> => {
+export async function getSettings(): Promise<AppPluginSettings> {
   const response = getBackendSrv().fetch({
     url: `/api/plugins/ricoberger-backstage-app/settings`,
     method: 'GET',
@@ -115,13 +115,13 @@ export const getSettings = async (): Promise<AppPluginSettings> => {
   const result = await lastValueFrom(response);
 
   return (result.data as { jsonData: AppPluginSettings }).jsonData;
-};
+}
 
 /**
  * Fetches the currently logged-in user and returns the Backstage reference for
  * the user.
  */
-export const getUserRef = async (): Promise<string> => {
+export async function getUserRef(): Promise<string> {
   const response = getBackendSrv().fetch({
     url: `/api/user`,
     method: 'GET',
@@ -129,15 +129,15 @@ export const getUserRef = async (): Promise<string> => {
   const result = await lastValueFrom(response);
 
   return `user:default/${(result.data as { login: string }).login}`;
-};
+}
 
 /**
  * Return the link to the Grafana dashboard for the given entity, if available.
  */
-export const getLink = (
+export function getLink(
   entity: Entity,
   dashboards?: Array<[string, string]>,
-): string | undefined => {
+): string | undefined {
   if (
     entity.metadata.annotations &&
     entity.metadata.annotations['grafana.com/link']
@@ -162,4 +162,4 @@ export const getLink = (
   }
 
   return undefined;
-};
+}

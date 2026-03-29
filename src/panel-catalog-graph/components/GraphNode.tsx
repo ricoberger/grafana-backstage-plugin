@@ -1,15 +1,15 @@
-import React from 'react';
-import { Node, Position, Handle, NodeProps } from '@xyflow/react';
 import { Stack, useTheme2 } from '@grafana/ui';
+import { Handle, Node, NodeProps, Position } from '@xyflow/react';
+import React from 'react';
 
 import { Icons } from '../../components/icons/Icons';
 
 export const nodeWidth = 172;
 export const nodeHeight = 36;
 
-export const GraphNode: React.FC<
-  NodeProps<Node<{ isRoot: boolean; kind: string; name: string }>>
-> = ({ data }) => {
+export function GraphNode({
+  data,
+}: NodeProps<Node<{ isRoot: boolean; kind: string; name: string }>>) {
   const theme = useTheme2();
 
   return (
@@ -50,4 +50,4 @@ export const GraphNode: React.FC<
       />
     </>
   );
-};
+}

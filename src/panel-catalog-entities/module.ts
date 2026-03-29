@@ -1,7 +1,7 @@
 import { PanelPlugin } from '@grafana/data';
 
-import { Options } from './types';
 import { Panel } from './components/Panel';
+import { Options } from './types';
 
 export const plugin = new PanelPlugin<Options>(Panel).setPanelOptions(
   (builder) => {

@@ -1,20 +1,19 @@
-import React, { ReactNode } from 'react';
 import { PanelProps } from '@grafana/data';
-import { useAsync } from 'react-use';
 import {
   Alert,
-  Text,
+  Badge,
+  LinkButton,
   LoadingPlaceholder,
   ScrollContainer,
   Stack,
-  Badge,
+  Text,
   TextLink,
-  LinkButton,
 } from '@grafana/ui';
+import React, { ReactNode } from 'react';
+import { useAsync } from 'react-use';
 
-import { Options } from '../types';
-import { Entity } from '../../types/backstage';
 import { Icons } from '../../components/icons/Icons';
+import { Entity } from '../../types/backstage';
 import { AppPluginSettings } from '../../types/settings';
 import {
   formatEntityRef,
@@ -22,15 +21,11 @@ import {
   getLink,
   getSettings,
 } from '../../utils/utils.entities';
+import { Options } from '../types';
 
 interface Props extends PanelProps<Options> { }
 
-export const Panel: React.FC<Props> = ({
-  options,
-  width,
-  height,
-  replaceVariables,
-}) => {
+export function Panel({ options, width, height, replaceVariables }: Props) {
   const entityRef = formatEntityRef(
     replaceVariables(options.entity),
     'component',
@@ -206,4 +201,4 @@ export const Panel: React.FC<Props> = ({
       </Stack>
     </ScrollContainer>
   );
-};
+}

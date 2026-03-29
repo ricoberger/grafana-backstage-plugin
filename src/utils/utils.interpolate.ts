@@ -1,10 +1,10 @@
 import { JSONPath } from 'jsonpath-plus';
 
-export const interpolateJSONPath = (
+export function interpolateJSONPath(
   str: string,
   manifest: any,
   interpolator: string[] = ['{{', '}}'],
-): string => {
+): string {
   return str
     .split(interpolator[0])
     .map((s1, i) => {
@@ -24,4 +24,4 @@ export const interpolateJSONPath = (
       return s2.join('');
     })
     .join('');
-};
+}

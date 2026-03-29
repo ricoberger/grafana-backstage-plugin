@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
 import { css } from '@emotion/css';
 import { GrafanaTheme2 } from '@grafana/data';
-import { Box, Card, useStyles2 } from '@grafana/ui';
 import { PluginPage } from '@grafana/runtime';
+import { Box, Card, useStyles2 } from '@grafana/ui';
+import React, { useState } from 'react';
 
-import { Filters } from '../types/backstage';
-import { testIds } from '../components/testIds';
 import { CatalogFilters } from '../components/catalog/CatalogFilters';
 import { CatalogTable } from '../components/catalog/CatalogTable';
+import { testIds } from '../components/testIds';
+import { Filters } from '../types/backstage';
 
 function PageCatalog() {
   const styles = useStyles2((theme: GrafanaTheme2) => ({
