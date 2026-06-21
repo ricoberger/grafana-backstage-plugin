@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.4.1](https://github.com/ricoberger/grafana-backstage-plugin/tree/v0.4.1) (2026-06-21)
+
+[Full Changelog](https://github.com/ricoberger/grafana-backstage-plugin/compare/v0.4.0...v0.4.1)
+
+- chore: bump @grafana/create-plugin configuration to 7.7.0 [\#66](https://github.com/ricoberger/grafana-backstage-plugin/pull/66) ([ricoberger](https://github.com/ricoberger))
+- chore\(deps\): update grafana packages [\#63](https://github.com/ricoberger/grafana-backstage-plugin/pull/63) ([ricoberger](https://github.com/ricoberger))
+- test\(e2e\): remove e2e tests [\#57](https://github.com/ricoberger/grafana-backstage-plugin/pull/57) ([ricoberger](https://github.com/ricoberger))
+- style: use regular functions and organize imports [\#50](https://github.com/ricoberger/grafana-backstage-plugin/pull/50) ([ricoberger](https://github.com/ricoberger))
+- Show Links for Catalog Entities [\#45](https://github.com/ricoberger/grafana-backstage-plugin/pull/45) ([ricoberger](https://github.com/ricoberger))
+
 ## [v0.4.0](https://github.com/ricoberger/grafana-backstage-plugin/tree/v0.4.0) (2026-03-04)
 
 [Full Changelog](https://github.com/ricoberger/grafana-backstage-plugin/compare/v0.3.0...v0.4.0)
