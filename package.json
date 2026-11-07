@@ -31,8 +31,8 @@
     "@testing-library/react": "^16.3.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.0.0",
-    "@types/react": "^18.3.0",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
     "copy-webpack-plugin": "^14.0.0",
@@ -67,24 +67,24 @@
     "webpack-virtual-modules": "^0.6.2"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=24"
   },
   "dependencies": {
     "@emotion/css": "11.10.6",
-    "@grafana/data": "13.1.4",
-    "@grafana/i18n": "13.1.4",
-    "@grafana/runtime": "13.1.4",
-    "@grafana/schema": "13.1.4",
-    "@grafana/ui": "13.1.4",
+    "@grafana/data": "13.3.0",
+    "@grafana/i18n": "13.3.0",
+    "@grafana/runtime": "13.3.0",
+    "@grafana/schema": "13.3.0",
+    "@grafana/ui": "13.3.0",
     "@types/dagre": "^0.7.54",
     "@xyflow/react": "^12.11.5",
     "dagre": "^0.8.5",
     "jsonpath-plus": "^10.4.0",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-router-dom": "^7.0.0",
     "react-use": "^17.6.1",
     "rxjs": "7.8.2"
   },
-  "packageManager": "npm@11.6.0"
+  "packageManager": "npm@11.17.0"
 }
