@@ -1,5 +1,15 @@
 # Changelog
 
+## [v0.5.0](https://github.com/ricoberger/grafana-backstage-plugin/tree/v0.5.0) (2026-11-08)
+
+[Full Changelog](https://github.com/ricoberger/grafana-backstage-plugin/compare/v0.4.1...v0.5.0)
+
+- chore: dependency updates [\#92](https://github.com/ricoberger/grafana-backstage-plugin/pull/92) ([ricoberger](https://github.com/ricoberger))
+- chore: bump @grafana/create-plugin configuration to 7.17.0 [\#89](https://github.com/ricoberger/grafana-backstage-plugin/pull/89) ([ricoberger](https://github.com/ricoberger))
+- chore: bump @grafana/create-plugin configuration to 7.11.0 [\#83](https://github.com/ricoberger/grafana-backstage-plugin/pull/83) ([ricoberger](https://github.com/ricoberger))
+- chore: update dependencies [\#76](https://github.com/ricoberger/grafana-backstage-plugin/pull/76) ([ricoberger](https://github.com/ricoberger))
+- chore: bump @grafana/create-plugin configuration to 7.9.1 [\#72](https://github.com/ricoberger/grafana-backstage-plugin/pull/72) ([ricoberger](https://github.com/ricoberger))
+
 ## [v0.4.1](https://github.com/ricoberger/grafana-backstage-plugin/tree/v0.4.1) (2026-06-21)
 
 [Full Changelog](https://github.com/ricoberger/grafana-backstage-plugin/compare/v0.4.0...v0.4.1)
